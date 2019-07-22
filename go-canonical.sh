@@ -8,8 +8,8 @@ while read line; do
     doc=$(echo $line | cut -d, -f3)
     homepage=$(echo $line | cut -d, -f4)
 
-    mkdir -p docs/$package
-    cat > docs/$package/index.html <<EOF
+    mkdir -p public/$package
+    cat > public/$package/index.html <<EOF
 <!DOCTYPE html>
 <html>
   <head>
