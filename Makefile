@@ -1,4 +1,5 @@
 .PHONY: build
 build:
+	rm -rf public
 	cp -rf docs public
-	./go-canonical.sh
+	./go-get.sh

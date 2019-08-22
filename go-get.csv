@@ -1,0 +1,6 @@
+#package,             repo,    sub-packages
+calcbiz,              https://github.com/ultreme/camembert-au-lait-crew, api pkg pkg/crew pkg/dashboard pkg/numberinfo pkg/random pkg/soundcloud pkg/spreadshirt svc views
+moi-j-aime-generator, https://github.com/ultreme/moi-j-aime-generator,   cmd cmd/moijaime
+recettator,           https://github.com/ultreme/recettator,             pkg pkg/ingredients cmd/recettator
+kryptos,              https://github.com/ultreme/kryptos,                cmd cmd/kryptos
+smsify,               https://github.com/ultreme/smsify,                 smsify
