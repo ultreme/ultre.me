@@ -4,3 +4,4 @@ moi-j-aime-generator, https://github.com/ultreme/moi-j-aime-generator,   cmd cmd
 recettator,           https://github.com/ultreme/recettator,             pkg pkg/ingredients cmd/recettator
 kryptos,              https://github.com/ultreme/kryptos,                cmd cmd/kryptos
 smsify,               https://github.com/ultreme/smsify,                 smsify
+golang-repo-template, https://github.com/ultreme/golang-repo-template,
