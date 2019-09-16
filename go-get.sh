@@ -35,11 +35,11 @@ while read line; do
     project_url=$(echo $line | awk -F, '{print $2}' | xargs)
     sub_packages=$(echo $line | awk -F, '{print $3}' | xargs)
 
-    echo "---"
-    echo "project_name: $project_name"
-    echo "project_url:  $project_url"
-    echo "sub_packages: $sub_packages"
-    echo ""
+    #echo "---"
+    #echo "project_name: $project_name"
+    #echo "project_url:  $project_url"
+    #echo "sub_packages: $sub_packages"
+    #echo ""
 
     create_package "$project_name" "$project_url" "."
     echo "$project_name" >> $rootdir/go-packages.txt

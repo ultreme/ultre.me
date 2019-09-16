@@ -1,0 +1,95 @@
+baseURL: https://ultre.me/
+rssLimit: 20
+enableRobotsTXT: true
+metaDataFormat: yaml
+languageCode: fr-fr
+title: Ultreme M1ch3l
+timeout: 60000
+enableEmoji: true
+enableGitInfo: true
+canonifyURLs: true
+blackfriday:
+  hrefTargetBlank: true
+DefaultContentLanguage: fr
+diableAliases: false
+#preserveTaxonomyNames: true
+Copyright: "&copy; Ultreme M1ch3l&ndash;2019"
+relativeURLs: true
+params:
+  googleanalytics: "UA-51632370-4"
+  rssFullContent: true
+  #description: "Ultreme M1ch3l"
+  useSummaryIfNoDescription: true
+  keepReadingStr: More
+  backtotopStr: Up
+imaging:
+  resampleFilter: MitchellNetravali
+  quality: 95
+  anchor: smart
+related:
+  threshold: 50
+  includeNewer: true
+  toLower: true
+  indices:
+    - name: keywords
+      weight: 130
+    - name: series
+      weight: 110
+    - name: projects
+      weight: 90
+    - name: tags
+      weight: 50
+    - name: people
+      weight: 50
+    - name: date
+      weight: 40
+social:
+#  twitter:
+  github: ultreme
+#  linkedin:
+#  medium:
+#  soundcloud:
+author:
+  name: Ultreme Staff
+  homepage: https://ultre.me
+taxonomies:
+  language: languages
+  author: authors
+  category: categories
+  tag: tags
+  project: projects
+  artist: artists
+  person: people
+  location: locations
+permalink:
+  artists: "/artist/:slug"
+  projects: "/project/:slug"
+  albums: "/album/:slug"
+  books: "/book/:slug"
+  tags: "/tag/:slug"
+  authors: "/person/:slug"
+  locations: "/location/:slug"
+  events: "/event/:slug"
+  categories: "/category/:slug"
+menu:
+  main:
+    - identifier: about
+      name: About
+      url: /
+      weight: 1
+    - identifier: records
+      name: Records
+      url: /records
+      weight: 50
+    - identifier: publishing
+      name: Publishing
+      url: /publishing
+      weight: 70
+    - identifier: projects
+      name: Projects
+      url: /projects
+      weight: 80
+    - identifier: donate
+      name: Dons
+      url: /dons
+      weight: 100
