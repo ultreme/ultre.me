@@ -5,3 +5,4 @@ recettator,           https://github.com/ultreme/recettator,             pkg pkg
 kryptos,              https://github.com/ultreme/kryptos,                cmd cmd/kryptos
 smsify,               https://github.com/ultreme/smsify,                 smsify
 golang-repo-template, https://github.com/ultreme/golang-repo-template,
+speechotron,          https://github.com/ultreme/speechotron
