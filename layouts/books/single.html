@@ -1,0 +1,29 @@
+{{ define "h1" }}
+Ultreme Publishing
+{{ end }}
+
+{{ define "main" }}
+<section style="min-height: 100vh; background: #fff; padding-top: 100px; padding-bottom: 100px;">
+  <div class="container">
+    <div class="row">
+        <div class="col-md-12 mb-4">
+            <a href="{{ .Parent.RelPermalink }}">&leftarrow; Ultreme Publishing</a>
+        </div>
+        <div class="col-md-12">
+        <h5 class="pb-3" style="color: grey;">{{ .Params.from_table | title }}</h5>
+        <div class="pb-3">
+          {{ with .Params.picture }}
+          {{ $img := index . 0 }}
+          <img class="img-fluid" style="width: 200px; border-radius: 10px;" src="{{ (resources.Get $img.local).RelPermalink }}" />
+          {{ end }}
+        </div>
+
+        <h1 class="mb-0">{{ .Title }}</h1>
+        <h4 class="mb-4" style="color: grey; font-size: 20px;">{{ .Params.headline }}</h4>
+        <p>{{ .Description }}</p>
+        <p>{{ .Content }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
