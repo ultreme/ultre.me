@@ -1,0 +1,122 @@
+{{ define "main" }}
+{{ $image := "" }}
+{{ if .Params.artwork }}
+{{ $image = index .Params.artwork 0 }}
+{{ end }}
+
+{{ $links := slice }}
+{{ $links = $links | append (dict "title" "Deezer" "url" .Params.deezer) }}
+{{ $links = $links | append (dict "title" "Amazon" "url" .Params.amazon) }}
+{{ $links = $links | append (dict "title" "Spotify" "url" .Params.spotify) }}
+{{ $links = $links | append (dict "title" "Google Play" "url" .Params.google_play) }}
+{{ $links = $links | append (dict "title" "Tidal" "url" .Params.tidal) }}
+{{ $links = $links | append (dict "title" "Youtube" "url" .Params.youtube_topic) }}
+{{ $links = $links | append (dict "title" "Soundcloud" "url" .Params.soundcloud_album) }}
+{{ $links = $links | append (dict "title" "Bandcamp" "url" .Params.bandcamp) }}
+{{ $links = $links | append (dict "title" "Musicbrainz" "url" .Params.musicbrainz) }}
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{{ `/albums` | relLangURL }}"><< Show all</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="mb-0 mt-3" style="font-size: 20px; color: grey;">{{ .Params.from_table | title }}</h3>
+        <h1 class="font-weight-bold">{{ .Title }}</h1>
+        {{ if $image }}
+        <div style="max-width: 250px;">
+          <img class="img-fluid" src="{{ (resources.Get $image.local).RelPermalink }}">
+        </div>
+        {{ end }}
+        <p>{{ .Params.comments }}</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <!-- TODO: Add release date -->
+        {{ with .Params.label }}<div><strong>Label:</strong> {{ . }}</div>{{ end }}
+        {{ with .Params.publisher }}<div><strong>Publisher:</strong> {{ . }}</div>{{ end }}
+        {{ with .Params.genre }}<div><strong>Genre:</strong> {{ delimit . ", " }}</div>{{ end }}
+        {{ with .Params.num_tracks }}<div><strong>No of tracks:</strong> {{ . }}</div>{{ end }}
+        {{ with .Params.upc }}<div><strong>UPC:</strong> {{ . }}</div>{{ end }}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Tracks</h2> <!-- TODO: multi lang -->
+      </div>
+      <div class="col-md-12">
+        <ul>
+          {{ range .Params.tracks }}
+          <li>{{ .name }}</li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Artists</h2> <!-- TODO: multi lang -->
+      </div>
+      <div class="col-md-12">
+        <ul>
+          {{ range .Params.at_artists }}
+          {{ $artist_page := $.GetPage .file_path }}
+          <li><a href="{{ $artist_page.RelPermalink }}">{{ $artist_page.Title }}</a></li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Links</h2> <!-- TODO: multi lang -->
+      </div>
+      <div class="col-md-12">
+        <ul>
+          {{ range $links }}
+          {{ if .url }}
+          <li>
+            <strong>{{ .title }}</strong> 
+            <a target="_blank" rel="noopener" href="{{ .url }}">{{ .url }}</a>
+          </li>
+          {{ end }}
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+{{ end }}

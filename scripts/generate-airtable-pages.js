@@ -34,10 +34,14 @@ async function main() {
       .map(addPageProps)
       .filter(i => i);
 
+    projects = (await fetchTable('Projects'))
+      .filter(isPublished)
+      .map(addPageProps)
+      .filter(i => i);
+
     tracks = await fetchTable('Tracks');
     mashups = await fetchTable('Mashups');
     playlists = await fetchTable('Playlists');
-    projects = await fetchTable('Projects');
     drawings = await fetchTable('Drawings%20%26%20Pictures');
     writings = await fetchTable('Writings');
     tags = await fetchTable('Tags');
@@ -76,7 +80,7 @@ async function main() {
     );
 
     // Create pages
-    ['albums', 'books', 'artists', 'events'].forEach(topic => {
+    ['albums', 'books', 'artists', 'events', 'projects'].forEach(topic => {
       const langSuffix = (lang != defaultLanguage ? lang : '')
       generateMarkdownFiles(joined.filter(item => item.from_table === topic), langSuffix);
     });
@@ -102,6 +106,10 @@ function addPageProps(item) {
     case 'events':
       title = item.name;
       basedir = '/events/';
+      break;
+    case 'projects':
+      title = item.name;
+      basedir = '/projects/';
       break;
     default:
       title = '';
