@@ -4,3 +4,13 @@
 *~
 *#
 .#*
+
+node_modules
+
+data/gen
+assets/gen
+
+content/albums
+content/artists
+content/books
+content/events

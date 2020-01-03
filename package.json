@@ -1,0 +1,22 @@
+{
+  "name": "ultre.me",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ultreme/ultre.me.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ultreme/ultre.me/issues"
+  },
+  "homepage": "https://github.com/ultreme/ultre.me#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.0"
+  }
+}
