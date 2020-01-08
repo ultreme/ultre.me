@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="{{ `/` | relLangURL}}">
+      <img src="/img/gomme.jpg" class="img-fluid" width="50" />
+      <span style="color:#c50c9f;">U</span><span style="color:#b82eb3;">L</span><span style="color:#ac50c8;">T</span><span style="color:#9f72dc;">R</span><span style="color:#597775;">E</span><span style="color:#127c0d;">M</span><span style="color:#1e9251;">E</span><span style="color:#2ba995;"> </span><span style="color:#37bfd9;">M</span><span style="color:#267dad;">1</span><span style="color:#143b80;">C</span><span style="color:#49597c;">H</span><span style="color:#7e7877;">3</span><span style="color:#b39673;">L</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        {{ $page := . }}
+        {{ range .Site.Menus.main }}
+        {{ $is_active := $page.IsMenuCurrent "main" .}}
+        <li class="nav-item {{ with $is_active }}active{{ end }}">
+          <a class="nav-link" href="{{ .URL }}">{{ .Name }}</span></a>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</nav>
