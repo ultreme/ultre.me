@@ -8,10 +8,12 @@
       <div class="col-md-12">
         <ul>
           {{ range .pages }}
+          {{ if .file_path }}
           {{ $page := $.ctx.GetPage .file_path }}
           <li>
             <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
           </li>
+          {{ end }}
           {{ end }}
         </ul>
       </div>
