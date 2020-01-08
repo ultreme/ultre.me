@@ -10,8 +10,10 @@ node_modules
 data/gen
 assets/gen
 
-content/albums
+content/records
 content/artists
-content/books
+content/publishing
 content/events
 content/projects
+
+!content/*/_index*.md
