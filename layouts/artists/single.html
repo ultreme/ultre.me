@@ -1,0 +1,68 @@
+{{ define "main" }}
+{{ $image := "" }}
+{{ if .Params.artwork }}
+{{ $image = index .Params.artwork 0 }}
+{{ end }}
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{{ `/artists` | relLangURL }}"><< Show all artists</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="mb-0 mt-3" style="font-size: 20px; color: grey;">{{ .Params.from_table | title }}</h3>
+        <h1 class="font-weight-bold">{{ .Title }}</h1>
+        {{ if $image }}
+        <div style="max-width: 250px;">
+          <img class="img-fluid" src="{{ (resources.Get $image.local).RelPermalink }}">
+        </div>
+        {{ end }}
+        <p>{{ .Params.bio }}</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        {{ with .Params.num_albums }}<div><strong>No of albums:</strong> {{ . }}</div>{{ end }}
+        {{ with .Params.num_tracks }}<div><strong>No of tracks:</strong> {{ . }}</div>{{ end }}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Tracks</h2> <!-- TODO: multi lang -->
+      </div>
+      <div class="col-md-12">
+        <ul>
+          {{ range .Params.tracks }}
+          <li>{{ .name }}</li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{{ partial "list-relation-pages" (dict "ctx" . "title" "Books" "pages" .Params.books) }} <!-- TODO: multi lang -->
+{{ partial "list-relation-pages" (dict "ctx" . "title" "Events" "pages" .Params.events) }} <!-- TODO: multi lang -->
+{{ partial "list-relation-pages" (dict "ctx" . "title" "Albums" "pages" .Params.albums) }} <!-- TODO: multi lang -->
+{{ partial "list-relation-pages" (dict "ctx" . "title" "Projects" "pages" .Params.hacks) }} <!-- TODO: multi lang -->
+{{ end }}

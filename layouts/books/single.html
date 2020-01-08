@@ -1,0 +1,50 @@
+{{ define "main" }}
+{{ $image := "" }}
+{{ if .Params.artwork }}
+{{ $image = index .Params.artwork 0 }}
+{{ end }}
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{{ `/books` | relLangURL }}"><< Show all books</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="mb-0 mt-3" style="font-size: 20px; color: grey;">{{ .Params.from_table | title }}</h3>
+        <h1 class="font-weight-bold">{{ .Title }}</h1>
+        {{ if $image }}
+        <div style="max-width: 250px;">
+          <img class="img-fluid" src="{{ (resources.Get $image.local).RelPermalink }}">
+        </div>
+        {{ end }}
+        <p>{{ .Params.notes }}</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        {{ with .Params.release_date }}<div><strong>Release date:</strong> {{ . }}</div>{{ end }}
+        {{ with .Params.asin }}<div><strong>ASIN</strong> {{ . }}</div>{{ end }}
+        {{ with .Params.isbn10 }}<div><strong>ISBN10</strong> {{ . }}</div>{{ end }}
+        {{ with .Params.isbn13 }}<div><strong>ISBN13</strong> {{ . }}</div>{{ end }}
+        {{ with .Params.amazon_link }}<div><strong>Amazon Link</strong> <a href="{{ . }}">{{ . }}</a></div>{{ end }}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{{ partial "list-relation-pages" (dict "ctx" . "title" "Authors" "pages" .Params.authors) }} <!-- TODO: multi lang -->
+
+{{ end }}

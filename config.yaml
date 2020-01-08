@@ -56,7 +56,6 @@ taxonomies:
   language: languages
   category: categories
   tag: tags
-  project: projects
   person: people
   location: locations
 permalink:

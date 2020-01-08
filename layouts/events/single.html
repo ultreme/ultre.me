@@ -1,0 +1,51 @@
+{{ define "main" }}
+{{ $image := "" }}
+{{ if .Params.artwork }}
+{{ $image = index .Params.artwork 0 }}
+{{ end }}
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{{ `/events` | relLangURL }}"><< Show all events</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="mb-0 mt-3" style="font-size: 20px; color: grey;">{{ .Params.from_table | title }}</h3>
+        <h1 class="font-weight-bold">{{ .Title }}</h1>
+        {{ if $image }}
+        <div style="max-width: 250px;">
+          <img class="img-fluid" src="{{ (resources.Get $image.local).RelPermalink }}">
+        </div>
+        {{ end }}
+        <p>{{ .Params.description }}</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        {{ with .Params.event_start_date }}<div><strong>Start date</strong> {{ . }}</div>{{ end }}
+        {{ with .Params.event_end_date }}<div><strong>End date</strong> {{ . }}</div>{{ end }}
+        {{ with .Params.kind }}<div><strong>Kind</strong> {{ delimit . ", " }}</div>{{ end }}
+        {{ with .Params.official_event_page  }}<div><strong>Event page</strong> <a href="{{ . }}">{{ . }}</a></div>{{ end }}
+        {{ with .Params.mixcloud }}<div><strong>Mixclloud</strong> <a href="{{ . }}">{{ . }}</a></div>{{ end }}
+        {{ with .Params.location }}<div><strong>Location</strong> {{ . }}</div>{{ end }}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{{ partial "list-relation-pages" (dict "ctx" . "title" "Artists" "pages" .Params.artists) }} <!-- TODO: multi lang -->
+
+{{ end }}

@@ -20,7 +20,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <a href="{{ `/albums` | relLangURL }}"><< Show all</a>
+        <a href="{{ `/albums` | relLangURL }}"><< Show all albums</a>
       </div>
     </div>
 
@@ -45,7 +45,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <!-- TODO: Add release date -->
+        {{ with .Params.official_release_date }}<div><strong>Official Release date:</strong> {{ . }}</div>{{ end }}
         {{ with .Params.label }}<div><strong>Label:</strong> {{ . }}</div>{{ end }}
         {{ with .Params.publisher }}<div><strong>Publisher:</strong> {{ . }}</div>{{ end }}
         {{ with .Params.genre }}<div><strong>Genre:</strong> {{ delimit . ", " }}</div>{{ end }}
@@ -57,44 +57,8 @@
   </div>
 </section>
 
-<section class="py-4">
-  <div class="container">
-
-    <div class="row">
-      <div class="col-md-12">
-        <h2>Tracks</h2> <!-- TODO: multi lang -->
-      </div>
-      <div class="col-md-12">
-        <ul>
-          {{ range .Params.tracks }}
-          <li>{{ .name }}</li>
-          {{ end }}
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<section class="py-4">
-  <div class="container">
-
-    <div class="row">
-      <div class="col-md-12">
-        <h2>Artists</h2> <!-- TODO: multi lang -->
-      </div>
-      <div class="col-md-12">
-        <ul>
-          {{ range .Params.at_artists }}
-          {{ $artist_page := $.GetPage .file_path }}
-          <li><a href="{{ $artist_page.RelPermalink }}">{{ $artist_page.Title }}</a></li>
-          {{ end }}
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</section>
+{{ partial "list-relation-pages" (dict "ctx" . "title" "Tracks" "pages" .Params.tracks) }} <!-- TODO: multi lang -->
+{{ partial "list-relation-pages" (dict "ctx" . "title" "Artists" "pages" .Params.at_artists) }} <!-- TODO: multi lang -->
 
 <section class="py-4">
   <div class="container">

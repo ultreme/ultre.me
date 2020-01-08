@@ -1,0 +1,46 @@
+{{ define "main" }}
+{{ $image := "" }}
+{{ if .Params.artwork }}
+{{ $image = index .Params.artwork 0 }}
+{{ end }}
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{{ `/projects` | relLangURL }}"><< Show all projects</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="mb-0 mt-3" style="font-size: 20px; color: grey;">{{ .Params.from_table | title }}</h3>
+        <h1 class="font-weight-bold">{{ .Title }}</h1>
+        {{ if $image }}
+        <div style="max-width: 250px;">
+          <img class="img-fluid" src="{{ (resources.Get $image.local).RelPermalink }}">
+        </div>
+        {{ end }}
+        <p>{{ .Params.description }}</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        {{ with .Params.url }}<div><strong>URL:</strong> {{ . }}</div>{{ end }}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{{ partial "list-relation-pages" (dict "ctx" . "title" "Authors" "pages" .Params.authors) }} <!-- TODO: multi lang -->
+
+{{ end }}
