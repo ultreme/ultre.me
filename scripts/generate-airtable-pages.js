@@ -298,7 +298,7 @@ function generateMarkdownFiles(items, langSuffix = '') {
 
 function safeFrontmatterProps(item) {
   const prefix = 'at_';
-  const reservedsKeys = ['tags', 'type', 'artists', 'authors'];
+  const reservedsKeys = ['tags', 'type', 'url'];
   Object.keys(item).forEach(key => {
     if (reservedsKeys.includes(key)) {
       item[`${prefix}${key}`] = item[key];
