@@ -93,11 +93,11 @@ function addPageProps(item) {
   switch (item.from_table) {
     case 'albums':
       title = item.name;
-      basedir = '/albums/';
+      basedir = '/records/';
       break;
     case 'books':
       title = item.name;
-      basedir = '/books/';
+      basedir = '/publishing/';
       break;
     case 'artists':
       title = item.name;
