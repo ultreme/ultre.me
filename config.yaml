@@ -68,28 +68,7 @@ permalink:
   locations: "/location/:slug"
   events: "/event/:slug"
   categories: "/category/:slug"
-menu:
-  main:
-    - identifier: about
-      name: About
-      url: /
-      weight: 1
-    - identifier: records
-      name: Records
-      url: /records
-      weight: 50
-    - identifier: publishing
-      name: Publishing
-      url: /publishing
-      weight: 70
-    - identifier: projects
-      name: Projects
-      url: /projects
-      weight: 80
-    - identifier: donate
-      name: Dons
-      url: /dons
-      weight: 100
+
 languageCode: en
 DefaultContentLanguage: en
 
