@@ -185,6 +185,7 @@ function flattenAirtableRecords(tableName, items) {
       let value = item.fields[key];
       const newKey = key
         .toLowerCase()
+        .replace(/\"/g, '')
         .replace(/\#/g, '_')
         .replace(/\./g, '_')
         .replace(/\(s\)/g, '_')
@@ -427,7 +428,7 @@ function getImagePath(filepath, absolute = true) {
   const filename = path.basename(filepath);
   return absolute
     ? path.join(__dirname, `../assets/gen/img/${filename}`)
-    : path.join(`/gen/img/${filename}`);
+    : path.join(`/gen/img/${filename.replace(/\%/g, '_')}`);
 }
 
 function log(message) {
