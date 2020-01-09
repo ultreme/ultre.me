@@ -38,8 +38,31 @@
 </section>
 
 {{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
-{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "tracks" .) "pages" .Params.tracks) }} 
 {{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "artists" .) "pages" .Params.at_artists) }}
+
+<section class="py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>{{ (i18n "tracks" .) }}</h2>
+      </div>
+      <div class="col-md-12">
+        
+        {{ if not .Params.tracks }}
+        {{ i18n "no_data"}}
+        {{ else }}
+        <ul>
+          {{ range .Params.tracks }}
+          <li>
+            <strong>{{ .name }}</strong> 
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="py-4">
   <div class="container">
@@ -52,8 +75,8 @@
         <ul>
           {{ range (($s.Get "links")) }}
           <li>
-            <strong>{{ .title }}</strong> 
-            <a style="word-break: break-all;" target="_blank" rel="noopener" href="{{ .url }}">{{ .url }}</a>
+            <strong>{{ .title }}:</strong> 
+            {{ with .url }}<a style="word-break: break-all;" target="_blank" rel="noopener" href="{{ . }}">{{ . }}</a>{{ else }}-{{ end }}
           </li>
           {{ end }}
         </ul>
