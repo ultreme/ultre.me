@@ -1,0 +1,25 @@
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        {{ range .items }}
+        {{ $is_link := .is_link }}
+        <div>
+          <strong>{{ .key }}:</strong> 
+          {{ with .value }}
+            {{ if $is_link }}
+              <a href="{{ . }}">{{ . }}</a>
+            {{ else }}
+              {{ . }}
+            {{ end }}
+          {{ else }}
+          -
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </div>
+
+  </div>
+</section>

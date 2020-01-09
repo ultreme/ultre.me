@@ -4,7 +4,7 @@
     <div class="row">
 
       <div class="col-md-12 mb-5">
-        <h1>{{ .Title }} <span style="background: red; border-radius: 5px; font-size: 30px; padding: 10px; color: #fff;" class="font-weight-bold">{{ len .Pages }}</span></h1>
+        <h1>{{ .Title }} &mdash; <span class="font-weight-bold">{{ len .Pages }}</span></h1>
       </div>
 
       {{ range sort .Pages ".Title" }}

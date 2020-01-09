@@ -1,86 +1,68 @@
 {{ define "main" }}
-{{ $image := "" }}
-{{ if .Params.artwork }}
-{{ $image = index .Params.artwork 0 }}
+{{ $s := newScratch }}
+
+{{ $genre := "" }}
+{{ with .Params.genre }}
+{{ $genre = delimit . ", " }}
 {{ end }}
 
-{{ $links := slice }}
-{{ $links = $links | append (dict "title" "Deezer" "url" .Params.deezer) }}
-{{ $links = $links | append (dict "title" "Amazon" "url" .Params.amazon) }}
-{{ $links = $links | append (dict "title" "Spotify" "url" .Params.spotify) }}
-{{ $links = $links | append (dict "title" "Google Play" "url" .Params.google_play) }}
-{{ $links = $links | append (dict "title" "Tidal" "url" .Params.tidal) }}
-{{ $links = $links | append (dict "title" "Youtube" "url" .Params.youtube_topic) }}
-{{ $links = $links | append (dict "title" "Soundcloud" "url" .Params.soundcloud_album) }}
-{{ $links = $links | append (dict "title" "Bandcamp" "url" .Params.bandcamp) }}
-{{ $links = $links | append (dict "title" "Musicbrainz" "url" .Params.musicbrainz) }}
+{{ $s.Set "links" slice }}
+{{ $s.Add "links" (dict "title" "Deezer" "url" .Params.deezer) }}
+{{ $s.Add "links" (dict "title" "Amazon" "url" .Params.amazon) }}
+{{ $s.Add "links" (dict "title" "Spotify" "url" .Params.spotify) }}
+{{ $s.Add "links" (dict "title" "Google Play" "url" .Params.google_play) }}
+{{ $s.Add "links" (dict "title" "Tidal" "url" .Params.tidal) }}
+{{ $s.Add "links" (dict "title" "Youtube" "url" .Params.youtube_topic) }}
+{{ $s.Add "links" (dict "title" "Soundcloud" "url" .Params.soundcloud_album) }}
+{{ $s.Add "links" (dict "title" "Bandcamp" "url" .Params.bandcamp) }}
+{{ $s.Add "links" (dict "title" "Musicbrainz" "url" .Params.musicbrainz) }}
 
-<section class="py-4">
+{{ $s.Set "specs" slice }}
+{{ $s.Add "specs" (dict "key" (i18n "official_release_date") "value" .Params.release_date) }}
+{{ $s.Add "specs" (dict "key" (i18n "music_label") "value" .Params.label) }}
+{{ $s.Add "specs" (dict "key" (i18n "publisher") "value" .Params.publisher) }}
+{{ $s.Add "specs" (dict "key" (i18n "genre") "value" $genre) }}
+{{ $s.Add "specs" (dict "key" (i18n "no_of_tracks") "value" .Params.num_tracks) }}
+{{ $s.Add "specs" (dict "key" "UPC" "value" .Params.upc) }}
+
+{{ partial "single-hero" . }}
+
+<section>
   <div class="container">
-
     <div class="row">
-      <div class="col-md-12">
-        <a href="{{ `/albums` | relLangURL }}"><< Show all albums</a>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <h3 class="mb-0 mt-3" style="font-size: 20px; color: grey;">{{ .Params.from_table | title }}</h3>
-        <h1 class="font-weight-bold">{{ .Title }}</h1>
-        {{ if $image }}
-        <div style="max-width: 250px;">
-          <img class="img-fluid" src="{{ (resources.Get $image.local).RelPermalink }}">
-        </div>
-        {{ end }}
+      <div class="col">
         <p>{{ .Params.comments }}</p>
       </div>
     </div>
-
   </div>
 </section>
 
-<section class="py-4">
-  <div class="container">
-
-    <div class="row">
-      <div class="col-md-12">
-        {{ with .Params.official_release_date }}<div><strong>Official Release date:</strong> {{ . }}</div>{{ end }}
-        {{ with .Params.label }}<div><strong>Label:</strong> {{ . }}</div>{{ end }}
-        {{ with .Params.publisher }}<div><strong>Publisher:</strong> {{ . }}</div>{{ end }}
-        {{ with .Params.genre }}<div><strong>Genre:</strong> {{ delimit . ", " }}</div>{{ end }}
-        {{ with .Params.num_tracks }}<div><strong>No of tracks:</strong> {{ . }}</div>{{ end }}
-        {{ with .Params.upc }}<div><strong>UPC:</strong> {{ . }}</div>{{ end }}
-      </div>
-    </div>
-
-  </div>
-</section>
-
-{{ partial "list-relation-pages" (dict "ctx" . "title" "Tracks" "pages" .Params.tracks) }} <!-- TODO: multi lang -->
-{{ partial "list-relation-pages" (dict "ctx" . "title" "Artists" "pages" .Params.at_artists) }} <!-- TODO: multi lang -->
+{{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
+{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "tracks" .) "pages" .Params.tracks) }} 
+{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "artists" .) "pages" .Params.at_artists) }}
 
 <section class="py-4">
   <div class="container">
-
     <div class="row">
       <div class="col-md-12">
-        <h2>Links</h2> <!-- TODO: multi lang -->
+        <h2>{{ (i18n "links" .) }}</h2>
       </div>
       <div class="col-md-12">
+        {{ if gt (len ($s.Get "links")) 0 }}
         <ul>
-          {{ range $links }}
-          {{ if .url }}
+          {{ range (($s.Get "links")) }}
           <li>
             <strong>{{ .title }}</strong> 
-            <a target="_blank" rel="noopener" href="{{ .url }}">{{ .url }}</a>
+            <a style="word-break: break-all;" target="_blank" rel="noopener" href="{{ .url }}">{{ .url }}</a>
           </li>
           {{ end }}
-          {{ end }}
+        </ul>
+        {{ else }}
+        {{ i18n "no_data"}}
+        {{ end }}
         </ul>
       </div>
     </div>
-
   </div>
 </section>
 {{ end }}

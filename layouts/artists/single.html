@@ -1,68 +1,46 @@
 {{ define "main" }}
-{{ $image := "" }}
-{{ if .Params.artwork }}
-{{ $image = index .Params.artwork 0 }}
-{{ end }}
+{{ $s := newScratch }}
+{{ $s.Set "specs" slice }}
+{{ $s.Add "specs" (dict "key" (i18n "no_of_albums") "value" .Params.num_albums) }}
+{{ $s.Add "specs" (dict "key" (i18n "no_of_tracks") "value" .Params.num_tracks) }}
 
-<section class="py-4">
+{{ partial "single-hero" . }}
+
+<section>
   <div class="container">
-
     <div class="row">
-      <div class="col-md-12">
-        <a href="{{ `/artists` | relLangURL }}"><< Show all artists</a>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <h3 class="mb-0 mt-3" style="font-size: 20px; color: grey;">{{ .Params.from_table | title }}</h3>
-        <h1 class="font-weight-bold">{{ .Title }}</h1>
-        {{ if $image }}
-        <div style="max-width: 250px;">
-          <img class="img-fluid" src="{{ (resources.Get $image.local).RelPermalink }}">
-        </div>
-        {{ end }}
+      <div class="col">
         <p>{{ .Params.bio }}</p>
       </div>
     </div>
-
   </div>
 </section>
 
-<section class="py-4">
-  <div class="container">
-
-    <div class="row">
-      <div class="col-md-12">
-        {{ with .Params.num_albums }}<div><strong>No of albums:</strong> {{ . }}</div>{{ end }}
-        {{ with .Params.num_tracks }}<div><strong>No of tracks:</strong> {{ . }}</div>{{ end }}
-      </div>
-    </div>
-
-  </div>
-</section>
+{{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
 
 <section class="py-4">
   <div class="container">
-
     <div class="row">
       <div class="col-md-12">
-        <h2>Tracks</h2> <!-- TODO: multi lang -->
+        <h2>{{ i18n "tracks" . }}</h2> 
       </div>
       <div class="col-md-12">
+        {{ if not .Params.tracks }}
+        {{ i18n "no_data"}}
+        {{ else }}
         <ul>
           {{ range .Params.tracks }}
           <li>{{ .name }}</li>
           {{ end }}
         </ul>
+        {{ end }}
       </div>
     </div>
-
   </div>
 </section>
 
-{{ partial "list-relation-pages" (dict "ctx" . "title" "Books" "pages" .Params.books) }} <!-- TODO: multi lang -->
-{{ partial "list-relation-pages" (dict "ctx" . "title" "Events" "pages" .Params.events) }} <!-- TODO: multi lang -->
-{{ partial "list-relation-pages" (dict "ctx" . "title" "Albums" "pages" .Params.albums) }} <!-- TODO: multi lang -->
-{{ partial "list-relation-pages" (dict "ctx" . "title" "Projects" "pages" .Params.hacks) }} <!-- TODO: multi lang -->
+{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "books" .) "pages" .Params.books) }} 
+{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "events" .) "pages" .Params.events) }}
+{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "albums" .) "pages" .Params.albums) }} 
+{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "projects" .) "pages" .Params.hacks) }}
 {{ end }}
