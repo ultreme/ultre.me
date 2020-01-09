@@ -1,12 +1,11 @@
 {{ $.Scratch.Set "title" (print .Title " - " .Site.Title) }}
-{{ $.Scratch.Set "description" (.Description | default .Site.Params.default_description) }}
-{{ $.Scratch.Set "featured_image" (.Site.Params.default_featured_image | absURL) }}
-{{ if eq .Section "event" }}
-{{ $.Scratch.Set "description" (.Description | default .Site.Params.default_event_description) }}
+{{ $.Scratch.Set "description" (.Description | default .Site.Params.defaultDescription) }}
+
+{{ $featured_image := .Site.Params.defaultFeaturedImage }}
+{{ if .Params.artwork }}
+{{ $featured_image = (index .Params.artwork 0).local }}
 {{ end }}
-{{ if .Params.image }}
-{{ $.Scratch.Set "featured_image" ((.Resources.GetMatch .Params.image).Resize "1024x").Permalink }}
-{{ end }}
+{{ $.Scratch.Set "featured_image" ((resources.Get $featured_image).Fill "1200x600") }}
 
 <!DOCTYPE html>
 <html lang="{{ .Lang }}">
@@ -57,18 +56,17 @@
       {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
 
-    <meta name="description" content="{{ $.Scratch.Get `metaDescription` }}">
+    <meta name="description" content="{{ $.Scratch.Get `description` }}">
 
     <!-- Open Graph --> 
-    {{ $ogType := cond (and (eq .Section "blog") .IsPage) "article" "website" }}
-    <meta property="og:description" content="{{ $.Scratch.Get `metaDescription` }}">
+    <meta property="og:description" content="{{ $.Scratch.Get `description` }}">
     <meta property="og:url" content="{{ .Permalink | strings.TrimSuffix "/" }}" />
     <meta property="og:site_name" content="{{ .Site.Title }}" />
-    <meta property="og:type" content="{{ $ogType }}" />
-    <meta property="og:image" content="{{ ($.Scratch.Get `featuredImage`).Permalink }}" />
-    <meta property="og:image:width" content="{{ ($.Scratch.Get `featuredImage`).Width }}" />
-    <meta property="og:image:height" content="{{ ($.Scratch.Get `featuredImage`).Height }}" />
-    <meta property="og:title" content="{{ $.Scratch.Get `pageTitle` }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{{ ($.Scratch.Get `featured_image`).Permalink }}" />
+    <meta property="og:image:width" content="{{ ($.Scratch.Get `featured_image`).Width }}" />
+    <meta property="og:image:height" content="{{ ($.Scratch.Get `featured_image`).Height }}" />
+    <meta property="og:title" content="{{ $.Scratch.Get `title` }}" />
     <meta property="og:locale" content="{{ .Site.LanguageCode }}" />
     {{- if not .Date.IsZero }}
     <meta property="og:updated_time" content="{{.Date.Format "2006-01-02T15:04:05-07:00" | safeHTMLAttr}}" />
@@ -76,9 +74,9 @@
 
     <!-- Twitter Card --> 
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="{{ $.Scratch.Get `pageTitle` | truncate 65 }}">
-    <meta property="twitter:description" content="{{ $.Scratch.Get `metaDescription` | truncate 195 }}">
-    <meta property="twitter:image" content="{{ ($.Scratch.Get `featuredImage`).Permalink }}">
+    <meta property="twitter:title" content="{{ $.Scratch.Get `title` | truncate 65 }}">
+    <meta property="twitter:description" content="{{ $.Scratch.Get `description` | truncate 195 }}">
+    <meta property="twitter:image" content="{{ ($.Scratch.Get `featured_image`).Permalink }}">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

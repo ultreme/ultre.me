@@ -22,6 +22,8 @@ params:
   useSummaryIfNoDescription: true
   keepReadingStr: More
   backtotopStr: Up
+  defaultFeaturedImage: /img/gomme.jpg
+  defaultDescription: Ultreme M1ch3l
 imaging:
   resampleFilter: MitchellNetravali
   quality: 95
