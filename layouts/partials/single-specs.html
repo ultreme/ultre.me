@@ -9,7 +9,7 @@
           <strong>{{ .key }}:</strong> 
           {{ with .value }}
             {{ if $is_link }}
-              <a href="{{ . }}">{{ . }}</a>
+              <a target="_blank" rel="noopener" href="{{ . }}">{{ . }}</a>
             {{ else }}
               {{ . }}
             {{ end }}
