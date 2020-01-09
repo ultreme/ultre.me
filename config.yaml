@@ -63,7 +63,6 @@ permalink:
   projects: "/project/:slug"
   albums: "/album/:slug"
   books: "/book/:slug"
-  tags: "/tag/:slug"
   authors: "/person/:slug"
   locations: "/location/:slug"
   events: "/event/:slug"
