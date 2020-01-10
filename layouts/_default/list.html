@@ -8,14 +8,17 @@
       </div>
 
       {{ range sort .Pages ".Title" }}
-      <div class="col-md-12">
-        <a href="{{ .RelPermalink }}">
-          {{ .Title }}
-        </a>
-
-        <hr>
-      </div>
-      {{ end }}
+        {{ with .Render "li" }}
+          {{ . }}
+        {{ else }}
+          <div class="col-md-12">
+            <a href="{{ .RelPermalink }}">
+              <h4>{{ .Title }}</h4>
+            </a>
+            <hr>
+          </div>
+        {{ end }}
+      {{ end}}
 
     </div>
   </div>
