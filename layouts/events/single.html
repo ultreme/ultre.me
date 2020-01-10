@@ -1,0 +1,32 @@
+{{ define "main" }}
+
+{{ $kind := "" }}
+{{ with .Params.kind }}
+{{ $kind = delimit . ", " }}
+{{ end }}
+
+{{ $s := newScratch }}
+{{ $s.Set "specs" slice }}
+{{ $s.Add "specs" (dict "key" (i18n "event_start_date") "value" .Params.event_start_date) }}
+{{ $s.Add "specs" (dict "key" (i18n "event_end_date") "value" .Params.event_end_date) }}
+{{ $s.Add "specs" (dict "key" (i18n "kind") "value" $kind) }}
+{{ $s.Add "specs" (dict "key" (i18n "official_event_page") "value" .Params.official_event_page "is_link" true) }}
+{{ $s.Add "specs" (dict "key" "Mixcloud" "value" .Params.mixcloud "is_link" true) }}
+{{ $s.Add "specs" (dict "key" (i18n "location") "value" .Params.location) }}
+
+{{ partial "single-hero" . }}
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p>{{ .Params.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
+{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "artists" .) "pages" .Params.artists) }}
+
+{{ end }}

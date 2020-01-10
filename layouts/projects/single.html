@@ -1,0 +1,21 @@
+{{ define "main" }}
+{{ $s := newScratch }}
+{{ $s.Set "specs" slice }}
+{{ $s.Add "specs" (dict "key" "URL" "value" .Params.url "is_link" true) }}
+
+{{ partial "single-hero" . }}
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p>{{ .Params.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
+{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "authors" .) "pages" .Params.authors) }}
+
+{{ end }}

@@ -1,82 +1,54 @@
-<!doctype html>
-<html lang="en">
-  <head>
+{{ define "main" }}
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51632370-4"></script>
-    <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date()); gtag('config', 'UA-51632370-4');</script>
+{{ $records_page := $.GetPage "/records" }}
+{{ $publishing_page := $.GetPage "/publishing" }}
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
-    <style>
-      /*body{background:url(img/gomme.jpg) no-repeat right fixed}*/
-      *{font-family:"Comic Sans MS",cursive,sans-serif}
-    </style>
-    <script type="text/javascript">function UnCryptMailto(t){for(var n=0,o="",r=0;r<t.length;r++)(n=t.charCodeAt(r))>=8364&&(n=128),o+=String.fromCharCode(n-1);return o}function linkTo_UnCryptMailto(t){location.href=UnCryptMailto(t)}</script>
-    <title>ULTREME M1CH3L</title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <h1>
-          <img src="img/gomme.jpg" class="img-fluid" width="50" />
-          <span style="color:#c50c9f;">U</span><span style="color:#b82eb3;">L</span><span style="color:#ac50c8;">T</span><span style="color:#9f72dc;">R</span><span style="color:#597775;">E</span><span style="color:#127c0d;">M</span><span style="color:#1e9251;">E</span><span style="color:#2ba995;"> </span><span style="color:#37bfd9;">M</span><span style="color:#267dad;">1</span><span style="color:#143b80;">C</span><span style="color:#49597c;">H</span><span style="color:#7e7877;">3</span><span style="color:#b39673;">L</span>
-          <!--ULTREME M1CH3L-->
-        </h1>
-        <h2>notre mission: <i>&quot;La conception, la réalisation, le soutien, la promotion et le développement par tous moyens de démarches artistiques et d’échanges culturels&quot;</i></h2>
-      </div>
-      <div class="row align-items-center">
-        <div class="col-md-6 align-self-center" align="center">
-          <a target="_blank" href="./records/">
-            <img src="img/ultreme-records.png" class="img-fluid" />
-            <h3>Ultreme Records</h3>
-          </a>
-        </div>
-        <div class="col-md-6 align-self-center" align="center">
-          <a target="_blank" href="./publishing/">
-            <img src="img/logo%20sport%20extreme.png" class="img-fluid" />
-            <h3>Ultreme Publishing</h3>
-          </a>
-        </div>
-      </div>
-      <div class="row align-items-center">
-        <div class="col-md-6 align-self-center" align="center">
-          <a target="_blank" href="https://github.com/ultreme">
-            <img src="img/gomme.jpg" class="img-fluid" />
-            <h3>des 0 et des 1 sur GitHub</h3>
-          </a>
-        </div>
-        <div class="col-md-6 align-self-center" align="center">
-          <a target="_blank" href="https://camembertaulaitcrew.biz">
-            <img src="img/calc.png" class="img-fluid" />
-            <h3>Camembert au lait crew</h3>
-          </a>
-        </div>
-      </div>
-      <div class="row align-items-center">
-        <div class="col-md-6 align-self-center" align="center">
-          <a target="_blank" href="https://radio.m1ch3l.biz">
-            <img src="img/m1ch3l.png" class="img-fluid" />
-            <h3>Radio m1ch3l</h3>
-          </a>
-        </div>
-        <div class="col-md-6 align-self-center" align="center">
-          <a>
-            <img src="img/cle.png" class="img-fluid" />
-            <h3>D'autres projets à venir...</h3>
-          </a>
-        </div>
-      </div>
+<div class="container">
+  <div class="row">
+    <h2>{{ .Params.intro_text | safeHTML }}</h2>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-md-6 align-self-center" align="center">
+      <a target="_blank" href="{{ $records_page.RelPermalink }}">
+        <img src="{{ ((resources.Get `/img/ultreme-records.png`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
+        <h3>{{ $records_page.Title }}</h3>
+      </a>
     </div>
-    <footer>
-      <div class="container">
-        <div class="row">
-          <small>
-            ULTREME M1CH3L, association loi 1901 à but non lucratif, immatriculée au Répertoire National des Associations sous le nºW311004606.
-            nous contacter: <a href="javascript:linkTo_UnCryptMailto('nbjmup;opvtAvmusf/nf');">nous [at] ultre [dot] me</a>.
-          </small>
-        </div>
-      </div>
-    </footer>
-  </body>
-</html>
+    <div class="col-md-6 align-self-center" align="center">
+      <a target="_blank" href="{{ $publishing_page.RelPermalink }}">
+        <img src="{{ ((resources.Get `/img/logo_sport_extreme.png`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
+        <h3>{{ $publishing_page.Title }}</h3>
+      </a>
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-md-6 align-self-center" align="center">
+      <a target="_blank" href="https://github.com/ultreme">
+        <img src="{{ ((resources.Get `/img/gomme.jpg`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
+        <h3>des 0 et des 1 sur GitHub</h3>
+      </a>
+    </div>
+    <div class="col-md-6 align-self-center" align="center">
+      <a target="_blank" href="https://camembertaulaitcrew.biz">
+        <img src="{{ ((resources.Get `/img/calc.png`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
+        <h3>Camembert au lait crew</h3>
+      </a>
+    </div>
+  </div>
+  <div class="row align-items-center">
+    <div class="col-md-6 align-self-center" align="center">
+      <a target="_blank" href="https://radio.m1ch3l.biz">
+        <img src="{{ ((resources.Get `/img/m1ch3l.png`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
+        <h3>Radio m1ch3l</h3>
+      </a>
+    </div>
+    <div class="col-md-6 align-self-center" align="center">
+      <a>
+        <img src="{{ ((resources.Get `/img/cle.png`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
+        <h3>D'autres projets à venir...</h3>
+      </a>
+    </div>
+  </div>
+</div>
+
+{{ end }}

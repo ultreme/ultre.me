@@ -1,0 +1,35 @@
+{{ $image := "" }}
+{{ if .Params.artwork }}
+{{ $image = index .Params.artwork 0 }}
+{{ end }}
+
+<section class="py-4">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <a href="{{ .Parent.RelPermalink }}">
+            << {{ i18n "showall" (dict "entity" (i18n (.Params.from_table | lower))) }}
+        </a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="mb-0 mt-3" style="font-size: 20px; color: grey;">
+          {{ .Params.from_table | title }}
+        </h3>
+        
+        <h1 class="font-weight-bold">{{ .Title }}</h1>
+
+        {{ if $image }}
+        <div style="max-width: 250px;">
+          <img class="img-fluid" src="{{ ((resources.Get $image.local).Resize `250x jpg`).RelPermalink }}">
+        </div>
+        {{ end }}
+
+      </div>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,68 @@
+[showall]
+other = "Show all {{ .entity }}"
+
+[tracks]
+other = "Tracks"
+
+[books]
+other = "Books"
+
+[events]
+other = "Events"
+
+[albums]
+other = "Albums"
+
+[projects]
+other = "Projects"
+
+[artists]
+other = "Artists"
+
+[authors]
+other = "Authors"
+
+[links]
+other = "Links"
+
+[official_release_date]
+other = "Official release date"
+
+[music_label]
+other = "Label"
+
+[publisher]
+other = "Publisher"
+
+[genre]
+other = "Genre"
+
+[no_of_tracks]
+other = "No. of tracks"
+
+[no_of_albums]
+other = "No. of albums"
+
+[event_start_date]
+other = "Event start date"
+
+[event_end_date]
+other = "Event end date"
+
+[kind]
+other = "Kind"
+
+[official_event_page]
+other = "Official event date"
+
+[location]
+other = "Location"
+
+[release_date]
+other = "Release date"
+
+[amazon_link]
+other = "Amazon link"
+
+[no_data]
+other = "No data"

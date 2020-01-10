@@ -1,1 +1,26 @@
-{{.Content}}
+{{ define "main" }}
+<section>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-12 mb-5">
+        <h1>{{ .Title }} &mdash; <span class="font-weight-bold">{{ len .Pages }}</span></h1>
+      </div>
+
+      {{ range sort .Pages ".Title" }}
+        {{ with .Render "li" }}
+          {{ . }}
+        {{ else }}
+          <div class="col-md-12">
+            <a href="{{ .RelPermalink }}">
+              <h4>{{ .Title }}</h4>
+            </a>
+            <hr>
+          </div>
+        {{ end }}
+      {{ end}}
+
+    </div>
+  </div>
+</section>
+{{ end }}

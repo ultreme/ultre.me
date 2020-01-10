@@ -1,0 +1,105 @@
+{{ $.Scratch.Set "title" (print .Title " - " .Site.Title) }}
+{{ $.Scratch.Set "description" (.Description | default .Site.Params.defaultDescription) }}
+
+{{ $featured_image := .Site.Params.defaultFeaturedImage }}
+{{ if .Params.artwork }}
+{{ $featured_image = (index .Params.artwork 0).local }}
+{{ end }}
+{{ $.Scratch.Set "featured_image" ((resources.Get $featured_image).Fill "1200x600") }}
+
+<!DOCTYPE html>
+<html lang="{{ .Lang }}">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="{{ $.Scratch.Get `description` }}">
+    <meta name="author" content="">
+
+    {{ range .Page.Translations }}
+      <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+    {{ end }}
+
+    <title>{{ $.Scratch.Get "title" }}</title>
+
+    <!-- Favicon -->
+    {{ $favicon := resources.Get "/img/favicon.jpg" }}
+    <!-- generics -->
+    <link rel="shortcut icon" href="{{ relURL "/favicon/favicon.ico" }}">
+    <link rel="icon" href="{{ ($favicon.Resize `32x32`).RelPermalink }}" sizes="32x32">
+    <link rel="icon" href="{{ ($favicon.Resize `57x57`).RelPermalink }}" sizes="57x57">
+    <link rel="icon" href="{{ ($favicon.Resize `76x76`).RelPermalink }}" sizes="76x76">
+    <link rel="icon" href="{{ ($favicon.Resize `96x96`).RelPermalink }}" sizes="96x96">
+    <link rel="icon" href="{{ ($favicon.Resize `128x128`).RelPermalink }}" sizes="128x128">
+    <link rel="icon" href="{{ ($favicon.Resize `192x192`).RelPermalink }}" sizes="192x192">
+    <link rel="icon" href="{{ ($favicon.Resize `228x228`).RelPermalink }}" sizes="228x228">
+    <!-- Android -->
+    <link rel="shortcut icon" href="{{ ($favicon.Resize `196x196`).RelPermalink }}" sizes="196x196">
+    <!-- iOS -->
+    <link rel="apple-touch-icon" href="{{ ($favicon.Resize `120x120`).RelPermalink }}" sizes="120x120">
+    <link rel="apple-touch-icon" href="{{ ($favicon.Resize `152x152`).RelPermalink }}" sizes="152x152">
+    <link rel="apple-touch-icon" href="{{ ($favicon.Resize `180x180`).RelPermalink }}" sizes="180x180">
+    <!-- Windows 8 IE 10-->
+    <meta name="msapplication-TileColor" content="#3f49ea">
+    <meta name="msapplication-TileImage" content="{{ ($favicon.Resize `144x144`).RelPermalink }}">
+    <meta name="msapplication-config" content="{{ relURL "/favicon/browserconfig.xml" }}">
+
+    <link rel="manifest" href="{{ relURL "/favicon/site.webmanifest" }}">
+    <link rel="mask-icon" href="{{ relURL "/favicon/safari-pinned-tab.svg" }}" color="#5bbad5">
+
+    <meta name="theme-color" content="#ffffff">
+    <link rel="canonical" href="{{if index .Params "canonical"}}{{index .Params "canonical"}}{{else}}{{ .Permalink | strings.TrimSuffix "/"}}{{end}}" />
+
+    <!-- Alternative Outputs (RSS etc.) -->
+    {{ range .AlternativeOutputFormats -}}
+      {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+    {{ end -}}
+
+    <meta name="description" content="{{ $.Scratch.Get `description` }}">
+
+    <!-- Open Graph --> 
+    <meta property="og:description" content="{{ $.Scratch.Get `description` }}">
+    <meta property="og:url" content="{{ .Permalink | strings.TrimSuffix "/" }}" />
+    <meta property="og:site_name" content="{{ .Site.Title }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="{{ ($.Scratch.Get `featured_image`).Permalink }}" />
+    <meta property="og:image:width" content="{{ ($.Scratch.Get `featured_image`).Width }}" />
+    <meta property="og:image:height" content="{{ ($.Scratch.Get `featured_image`).Height }}" />
+    <meta property="og:title" content="{{ $.Scratch.Get `title` }}" />
+    <meta property="og:locale" content="{{ .Site.LanguageCode }}" />
+    {{- if not .Date.IsZero }}
+    <meta property="og:updated_time" content="{{.Date.Format "2006-01-02T15:04:05-07:00" | safeHTMLAttr}}" />
+    {{- end }}
+
+    <!-- Twitter Card --> 
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="{{ $.Scratch.Get `title` | truncate 65 }}">
+    <meta property="twitter:description" content="{{ $.Scratch.Get `description` | truncate 195 }}">
+    <meta property="twitter:image" content="{{ ($.Scratch.Get `featured_image`).Permalink }}">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleanalytics }}"></script>
+    <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date()); gtag('config', '{{ .Site.Params.googleanalytics }}');</script>
+
+    <style>
+      *{font-family:"Comic Sans MS",cursive,sans-serif}
+      body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+    </style>
+    <script type="text/javascript">function UnCryptMailto(t){for(var n=0,o="",r=0;r<t.length;r++)(n=t.charCodeAt(r))>=8364&&(n=128),o+=String.fromCharCode(n-1);return o}function linkTo_UnCryptMailto(t){location.href=UnCryptMailto(t)}</script>
+    
+  </head>
+  <body>
+    {{ partial "header" . }}
+    {{ block "main" . }}{{ end }}
+    {{ partial "footer" . }}
+  </body>
+</html>

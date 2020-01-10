@@ -1,0 +1,88 @@
+{{ define "main" }}
+{{ $s := newScratch }}
+
+{{ $genre := "" }}
+{{ with .Params.genre }}
+{{ $genre = delimit . ", " }}
+{{ end }}
+
+{{ $s.Set "links" slice }}
+{{ $s.Add "links" (dict "title" "Deezer" "url" .Params.deezer) }}
+{{ $s.Add "links" (dict "title" "Amazon" "url" .Params.amazon) }}
+{{ $s.Add "links" (dict "title" "Spotify" "url" .Params.spotify) }}
+{{ $s.Add "links" (dict "title" "Google Play" "url" .Params.google_play) }}
+{{ $s.Add "links" (dict "title" "Tidal" "url" .Params.tidal) }}
+{{ $s.Add "links" (dict "title" "Youtube" "url" .Params.youtube_topic) }}
+{{ $s.Add "links" (dict "title" "Soundcloud" "url" .Params.soundcloud_album) }}
+{{ $s.Add "links" (dict "title" "Bandcamp" "url" .Params.bandcamp) }}
+{{ $s.Add "links" (dict "title" "Musicbrainz" "url" .Params.musicbrainz) }}
+
+{{ $s.Set "specs" slice }}
+{{ $s.Add "specs" (dict "key" (i18n "official_release_date") "value" .Params.release_date) }}
+{{ $s.Add "specs" (dict "key" (i18n "music_label") "value" .Params.label) }}
+{{ $s.Add "specs" (dict "key" (i18n "publisher") "value" .Params.publisher) }}
+{{ $s.Add "specs" (dict "key" (i18n "genre") "value" $genre) }}
+{{ $s.Add "specs" (dict "key" (i18n "no_of_tracks") "value" .Params.num_tracks) }}
+{{ $s.Add "specs" (dict "key" "UPC" "value" .Params.upc) }}
+
+{{ partial "single-hero" . }}
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p>{{ .Params.comments }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
+{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "artists" .) "pages" .Params.artists) }}
+
+<section class="py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>{{ (i18n "tracks" .) }}</h2>
+      </div>
+      <div class="col-md-12">
+        {{ if not .Params.tracks }}
+        {{ i18n "no_data"}}
+        {{ else }}
+        <ul>
+          {{ range .Params.tracks }}
+          <li>
+            <strong>{{ .name }}</strong> 
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>{{ (i18n "links" .) }}</h2>
+      </div>
+      <div class="col-md-12">
+        <ul>
+          {{ range (($s.Get "links")) }}
+          {{ $title := .title }}
+          {{ with .url }}
+          <li>
+            <strong>{{ $title }}:</strong> 
+            <a style="word-break: break-all;" target="_blank" rel="noopener" href="{{ . }}">{{ . }}</a>
+          </li>
+          {{ end }}
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

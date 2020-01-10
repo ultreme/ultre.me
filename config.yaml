@@ -22,6 +22,8 @@ params:
   useSummaryIfNoDescription: true
   keepReadingStr: More
   backtotopStr: Up
+  defaultFeaturedImage: /img/gomme.jpg
+  defaultDescription: Ultreme M1ch3l
 imaging:
   resampleFilter: MitchellNetravali
   quality: 95
@@ -54,11 +56,8 @@ author:
   homepage: https://ultre.me
 taxonomies:
   language: languages
-  author: authors
   category: categories
   tag: tags
-  project: projects
-  artist: artists
   person: people
   location: locations
 permalink:
@@ -66,30 +65,21 @@ permalink:
   projects: "/project/:slug"
   albums: "/album/:slug"
   books: "/book/:slug"
-  tags: "/tag/:slug"
   authors: "/person/:slug"
   locations: "/location/:slug"
   events: "/event/:slug"
   categories: "/category/:slug"
-menu:
-  main:
-    - identifier: about
-      name: About
-      url: /
-      weight: 1
-    - identifier: records
-      name: Records
-      url: /records
-      weight: 50
-    - identifier: publishing
-      name: Publishing
-      url: /publishing
-      weight: 70
-    - identifier: projects
-      name: Projects
-      url: /projects
-      weight: 80
-    - identifier: donate
-      name: Dons
-      url: /dons
-      weight: 100
+
+languageCode: en
+DefaultContentLanguage: en
+defaultContentLanguageInSubdir: true
+
+languages:
+  en:
+    languageName: English
+    params:
+      locale: en_GB
+  fr:
+    languageName: French
+    params:
+      locale: fr_FR

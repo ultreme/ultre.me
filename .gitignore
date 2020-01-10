@@ -4,3 +4,16 @@
 *~
 *#
 .#*
+
+node_modules
+
+data/gen
+assets/gen
+
+content/records/*
+content/artists/*
+content/publishing/*
+content/events/*
+content/projects/*
+
+!content/*/_index*md
