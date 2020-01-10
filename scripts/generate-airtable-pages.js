@@ -1,6 +1,7 @@
 const fs = require('fs'),
       path = require('path'),
-      fetch = require('node-fetch');
+      fetch = require('node-fetch'),
+      mime = require('mime');
 
 const CHAPTER = 'Paris P2P';
 const AIRTABLE_BASE_ID = 'appgg0gNvXgqOnP9B';
@@ -66,8 +67,15 @@ async function main() {
 
   const translated = splitToMultiLanguage(entities);
 
-  await downloadImagesFromItems(entities);
-
+  try {
+    await Promise.all([
+      await downloadAttachmentsFromItems(entities)
+    ]);
+  } catch (err) {
+    log(`ERROR: attachment download error: ${err}`);
+    process.exit(5);
+  }
+  
   const defaultLanguage = 'en';
   ['en', 'fr'].forEach(lang => {
     // Join relations. 1 level deep
@@ -222,13 +230,22 @@ function flattenAirtableRecords(tableName, items) {
       if (value instanceof Array) {
         value = value.map(item => {
           if (item && item.filename) {
-            const url = item.thumbnails.large.url;
-            const extension = item.type.split('/')[1];
+            const url = item.thumbnails && item.thumbnails.large
+              ? item.thumbnails.large
+              : item.url;
+            const extension = mime.getExtension(item.type);
+
+            if (!extension) {
+              log(`WARNING: file extension unknown for ${item.type}`);
+            }
+
             return { 
-              is_image: true, 
+              isfile: true,
+              filename: item.filename,
+              size: item.size,
               type: item.type,
               remote: url, 
-              local: getImagePath(`${url}.${extension}`, false)
+              local: getAttachmentPath(`${item.id}-${item.filename.replace(/\s/g, '_')}.${extension}`, false)
             };
           }
           return item;
@@ -383,9 +400,9 @@ function joinRelations(items) {
 
 
 //
-// Download images
+// Download attachments
 //
-async function downloadImagesFromItems(items) {
+async function downloadAttachmentsFromItems(items) {
   const promises = [];
 
   items.forEach(item => {
@@ -393,8 +410,8 @@ async function downloadImagesFromItems(items) {
       const value = item[key];
       if (value instanceof Array) {
         value.forEach(async v => {
-          if (v && v.is_image) {
-            promises.push(downloadImage(v.remote, v.local));
+          if (v && v.isfile) {
+            promises.push(downloadAttachment(v.remote, v.local));
           }
         })
       }
@@ -405,14 +422,14 @@ async function downloadImagesFromItems(items) {
     await Promise.all(promises);
     return;
   } catch (err) {
-    log(`Images download error: ${err}`);
+    log(`Attachment download error: ${err}`);
     process.exit(4);
   }
 }
 
-async function downloadImage(url, destination) {
-  log(`Downloading image ${url}`);
-  const filepath = getImagePath(destination);
+async function downloadAttachment(url, destination) {
+  log(`Downloading attachment ${url}`);
+  const filepath = getAttachmentPath(destination);
   fs.mkdirSync(path.dirname(filepath), { recursive: true });
 
   const res = await fetch(url);
@@ -450,11 +467,11 @@ function isId(value) {
   return value.startsWith('rec') && value.length == 17;
 }
 
-function getImagePath(filepath, absolute = true) {
+function getAttachmentPath(filepath, absolute = true) {
   const filename = path.basename(filepath);
   return absolute
-    ? path.join(__dirname, `../assets/gen/img/${filename}`)
-    : path.join(`/gen/img/${filename.replace(/\%/g, '_')}`);
+    ? path.join(__dirname, `../assets/gen/${filename}`)
+    : path.join(`/gen/${filename.replace(/\%/g, '_')}`);
 }
 
 function log(message) {
