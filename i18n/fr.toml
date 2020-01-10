@@ -38,10 +38,10 @@ other = "Publisher"
 other = "Genre"
 
 [no_of_tracks]
-other = "No. de tracks"
+other = "Nbr. de tracks"
 
 [no_of_albums]
-other = "No. d'albums"
+other = "Nbr. d'albums"
 
 [event_start_date]
 other = "Date de début"
@@ -50,19 +50,19 @@ other = "Date de début"
 other = "Date de fin"
 
 [kind]
-other = "Kind"
+other = "Type"
 
 [official_event_page]
-other = "Official event date"
+other = "Date officielle de l'évènement"
 
 [location]
-other = "Location"
+other = "Lieu"
 
 [release_date]
-other = "Release date"
+other = "Date de sortie"
 
 [amazon_link]
-other = "Amazon link"
+other = "Lien Amazon"
 
 [no_data]
-other = "No data"
+other = "Pas de donnée"
