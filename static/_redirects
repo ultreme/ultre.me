@@ -1,3 +1,6 @@
 # automatically redirect to the translated homepage based on user-agent's preferences
 /  /fr/   302! Language=fr
 /  /en/   302!
+
+/publishing /en/publishing 301
+/records /en/records 301
