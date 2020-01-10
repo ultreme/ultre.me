@@ -5,18 +5,17 @@
       <div class="col-md-12">
         {{ range .items }}
         {{ $is_link := .is_link }}
+        {{ $key := .key }}
+        {{ with .value }}
         <div>
-          <strong>{{ .key }}:</strong> 
-          {{ with .value }}
-            {{ if $is_link }}
-              <a target="_blank" rel="noopener" href="{{ . }}">{{ . }}</a>
-            {{ else }}
-              {{ . }}
-            {{ end }}
+          <strong>{{ $key }}:</strong> 
+          {{ if $is_link }}
+            <a target="_blank" rel="noopener" href="{{ . }}">{{ . }}</a>
           {{ else }}
-          -
+            {{ . }}
           {{ end }}
         </div>
+        {{ end }}
         {{ end }}
       </div>
     </div>

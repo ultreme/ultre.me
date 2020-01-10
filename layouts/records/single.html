@@ -47,7 +47,6 @@
         <h2>{{ (i18n "tracks" .) }}</h2>
       </div>
       <div class="col-md-12">
-        
         {{ if not .Params.tracks }}
         {{ i18n "no_data"}}
         {{ else }}
@@ -71,18 +70,16 @@
         <h2>{{ (i18n "links" .) }}</h2>
       </div>
       <div class="col-md-12">
-        {{ if gt (len ($s.Get "links")) 0 }}
         <ul>
           {{ range (($s.Get "links")) }}
+          {{ $title := .title }}
+          {{ with .url }}
           <li>
-            <strong>{{ .title }}:</strong> 
-            {{ with .url }}<a style="word-break: break-all;" target="_blank" rel="noopener" href="{{ . }}">{{ . }}</a>{{ else }}-{{ end }}
+            <strong>{{ $title }}:</strong> 
+            <a style="word-break: break-all;" target="_blank" rel="noopener" href="{{ . }}">{{ . }}</a>
           </li>
           {{ end }}
-        </ul>
-        {{ else }}
-        {{ i18n "no_data"}}
-        {{ end }}
+          {{ end }}
         </ul>
       </div>
     </div>
