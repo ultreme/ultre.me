@@ -11,58 +11,40 @@ const {
 main();
 
 async function main() {
-  let tracks, albums, artists, events, mashups, playlists, books, projects, drawings, writings, tags;
+  let entities;
+
+  const pagesToCreate = ['Albums', 'Books', 'Artists', 'Events', 'Projects'];
+  const tableNames = [
+    'Albums',
+    'Books',
+    'Artists',
+    'Events',
+    'Projects',
+    'Tracks',
+    'Mashups',
+    'Playlists',
+    'Drawings%20%26%20Pictures',
+    'Writings',
+    'Tags',
+  ];
 
   try {
-    albums = (await fetchTable('Albums'))
-      .filter(isPublished)
-      .map(addPageProps)
-      .filter(i => i);
+    const promises = tableNames.map(name => fetchTable(name));
+    entities = (await Promise.all(promises)).map((items, index) => {
+      const tableName = tableNames[index];
+      if (pagesToCreate.includes(tableName)) {
+        items = items
+          .filter(isPublished)
+          .map(addPageProps)
+          .filter(i => i);
+      }
 
-    books = (await fetchTable('Books'))
-      .filter(isPublished)
-      .map(addPageProps)
-      .filter(i => i);
-
-    artists = (await fetchTable('Artists'))
-      .filter(isPublished)
-      .map(addPageProps)
-      .filter(i => i);
-
-    events = (await fetchTable('Events'))
-      .filter(isPublished)
-      .map(addPageProps)
-      .filter(i => i);
-
-    projects = (await fetchTable('Projects'))
-      .filter(isPublished)
-      .map(addPageProps)
-      .filter(i => i);
-
-    tracks = await fetchTable('Tracks');
-    mashups = await fetchTable('Mashups');
-    playlists = await fetchTable('Playlists');
-    drawings = await fetchTable('Drawings%20%26%20Pictures');
-    writings = await fetchTable('Writings');
-    tags = await fetchTable('Tags');
+      return items;
+    }).reduce((a, b) => a.concat(b), []);
   } catch (error) {
     log(`ERROR ${error}`);
     process.exit(1);
   }
-
-  const entities = [
-    ...tracks,
-    ...albums,
-    ...artists,
-    ...events,
-    ...mashups,
-    ...playlists,
-    ...books,
-    ...projects,
-    ...drawings,
-    ...writings,
-    ...tags
-  ]
 
   const translated = splitToMultiLanguage(entities);
 
