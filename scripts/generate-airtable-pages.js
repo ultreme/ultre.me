@@ -69,7 +69,7 @@ async function main() {
     );
 
     // Create pages
-    ['albums', 'books', 'artists', 'events', 'projects'].forEach(topic => {
+    pagesToCreate.map(p => p.toLowerCase()).forEach(topic => {
       const langSuffix = (lang != defaultLanguage ? lang : '')
       generateMarkdownFiles(joined.filter(item => item.from_table === topic), langSuffix);
     });
