@@ -1,32 +1,32 @@
 [showall]
-other = "Show all {{ .entity }}"
+other = "Revenir à la section {{ .entity }}"
 
 [tracks]
 other = "Tracks"
 
 [books]
-other = "Books"
+other = "Livres"
 
 [events]
-other = "Events"
+other = "Evènements"
 
 [albums]
 other = "Albums"
 
 [projects]
-other = "Projects"
+other = "Projets"
 
 [artists]
-other = "Artists"
+other = "Artistes"
 
 [authors]
-other = "Authors"
+other = "Auteurs"
 
 [links]
-other = "Links"
+other = "Liens"
 
 [official_release_date]
-other = "Official release date"
+other = "Date de sortie"
 
 [music_label]
 other = "Label"
@@ -38,16 +38,16 @@ other = "Publisher"
 other = "Genre"
 
 [no_of_tracks]
-other = "No. of tracks"
+other = "No. de tracks"
 
 [no_of_albums]
-other = "No. of albums"
+other = "No. d'albums"
 
 [event_start_date]
-other = "Event start date"
+other = "Date de début"
 
 [event_end_date]
-other = "Event end date"
+other = "Date de fin"
 
 [kind]
 other = "Kind"
