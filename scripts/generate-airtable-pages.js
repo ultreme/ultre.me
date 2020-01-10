@@ -3,7 +3,6 @@ const fs = require('fs'),
       fetch = require('node-fetch'),
       mime = require('mime');
 
-const CHAPTER = 'Paris P2P';
 const AIRTABLE_BASE_ID = 'appgg0gNvXgqOnP9B';
 const {
   AIRTABLE_API_KEY
@@ -231,7 +230,7 @@ function flattenAirtableRecords(tableName, items) {
         value = value.map(item => {
           if (item && item.filename) {
             const url = item.thumbnails && item.thumbnails.large
-              ? item.thumbnails.large
+              ? item.thumbnails.large.url
               : item.url;
             const extension = mime.getExtension(item.type);
 
