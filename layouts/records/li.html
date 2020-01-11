@@ -7,11 +7,11 @@
 <div>{{ (i18n "genre") }}: <strong>{{ $genre }}</strong></div>
 {{ end }}
 
-{{ if $genre }}
+{{ if .Params.num_tracks }}
 <div>{{ (i18n "no_of_tracks") }}:  <strong>{{ .Params.num_tracks }}</strong></div>
 {{ end }}
 
-<div>Artists: 
+<div>{{ i18n "artists" }}: 
   {{ range $index, $el := .Params.artists }} 
   {{ $artist_page := $.GetPage .file_path }}
   {{ if ne $index 0 }} & {{ end }}<a href="{{ $artist_page.RelPermalink }}">{{ $artist_page.Title }}</a>
