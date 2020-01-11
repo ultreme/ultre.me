@@ -20,6 +20,9 @@ body {
 .list-item a:hover {
   text-decoration: none;
 }
+.list-item:hover .list-item-inner {
+  box-shadow: 0 6px 15px rgba(171, 174, 209, .8);
+}
 .list-item .list-item-inner {
   display: flex;
   flex-direction: column;
@@ -27,6 +30,7 @@ body {
   box-shadow: 0 6px 15px rgba(171, 174, 209, 0.3);
   overflow: hidden;
   height: 100%;
+  transition: .2s all ease-in-out;
 }
 .list-item .list-item-inner > a {
   display: flex;
@@ -54,4 +58,14 @@ body {
 }
 .list-item .list-item-info a:hover {
   text-decoration: underline;
+}
+
+.img-block {
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(171, 174, 209, 0.8);
+  overflow: hidden;
+}
+.img-block img {
+  width: 100%;
+  object-fit: cover;
 }
