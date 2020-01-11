@@ -1,0 +1,16 @@
+{{ $at := index .ctx.Site.Data.gen (print "airtable_" .ctx.Lang) }}
+{{ $page := $.ctx.GetPage (index $at .id).file_path }}
+
+{{ $image := "" }}
+{{ if $page.Params.artwork }}
+{{ $image = (index $page.Params.artwork 0) }}
+{{ end }}
+
+<a href="{{ $page.RelPermalink }}" class="d-flex flex-column p-4 text-center">
+  <div class="m-auto" style="width: 120px; border-radius: 100%; overflow: hidden;">
+    {{ if $image }}
+    <img class="img-fluid" src="{{ (resources.Get $image.local).RelPermalink }}" />
+    {{ end }}
+  </div>
+  <h5 class="mt-2">{{ $page.Title }}</h5>
+</a>

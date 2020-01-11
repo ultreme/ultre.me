@@ -44,7 +44,6 @@
 */}}
 
 {{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
-{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "artists" .) "pages" .Params.artists) }}
 
 <section class="py-4">
   <div class="container">
@@ -69,6 +68,23 @@
   </div>
 </section>
 
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2>{{ (i18n "artists" .) }}</h2>
+      </div>
+    </div>
+    <div class="row">
+      {{ range .Params.artists }}
+      <div class="col-md-2">
+        {{ partial "person-block" (dict "ctx" $ "id" .id) }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
 <section class="py-4">
   <div class="container">
 
@@ -85,7 +101,7 @@
       {{ if .url }}
       <div class="col-md-2">
         <a class="shadow-block p-4 d-flex flex-column text-center" target="_blank" rel="noopener" href="{{ .url }}">
-          <div class="m-auto" style="width: 60px; font-size: 60px; color: #000;">{{ $icon | safeHTML }}</div>
+          <div class="m-auto" style="width: 40px; font-size: 40px; color: #000;">{{ $icon | safeHTML }}</div>
           <h5 class="font-weight-bold">{{ $title }}</h5>
         </a>
       </div>
