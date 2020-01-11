@@ -25,7 +25,7 @@
 
     <div class="row">
       {{ range .Params.artwork }}
-      <div class="col-md-3">
+      <div class="col-md-3 mb-3">
         <div class="img-block">
           <img src="{{ ((resources.Get $image.local).Resize `250x jpg`).RelPermalink }}">
         </div>
