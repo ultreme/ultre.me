@@ -69,3 +69,14 @@ body {
   width: 100%;
   object-fit: cover;
 }
+
+a.shadow-block {
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(171, 174, 209, 0.8);
+  overflow: hidden;
+  transition: .2s all ease-in-out;
+}
+a.shadow-block:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(171, 174, 209, .8);
+}

@@ -7,15 +7,15 @@
 {{ end }}
 
 {{ $s.Set "links" slice }}
-{{ $s.Add "links" (dict "title" "Deezer" "url" .Params.deezer) }}
-{{ $s.Add "links" (dict "title" "Amazon" "url" .Params.amazon) }}
-{{ $s.Add "links" (dict "title" "Spotify" "url" .Params.spotify) }}
-{{ $s.Add "links" (dict "title" "Google Play" "url" .Params.google_play) }}
-{{ $s.Add "links" (dict "title" "Tidal" "url" .Params.tidal) }}
-{{ $s.Add "links" (dict "title" "Youtube" "url" .Params.youtube_topic) }}
-{{ $s.Add "links" (dict "title" "Soundcloud" "url" .Params.soundcloud_album) }}
-{{ $s.Add "links" (dict "title" "Bandcamp" "url" .Params.bandcamp) }}
-{{ $s.Add "links" (dict "title" "Musicbrainz" "url" .Params.musicbrainz) }}
+{{ $s.Add "links" (dict "title" "Deezer" "url" .Params.deezer "icon" `<img class="img-fluid w-100" src="/img/deezer-logo.svg" />`) }}
+{{ $s.Add "links" (dict "title" "Amazon" "url" .Params.amazon "icon" `<i class="fab fa-amazon"></i>`) }}
+{{ $s.Add "links" (dict "title" "Spotify" "url" .Params.spotify "icon" `<i class="fab fa-spotify"></i>`) }}
+{{ $s.Add "links" (dict "title" "Google Play" "url" .Params.google_play "icon" `<i class="fab fa-google-play"></i>`) }}
+{{ $s.Add "links" (dict "title" "Tidal" "url" .Params.tidal "icon" `<img class="img-fluid w-100" src="/img/tidal-logo.svg" />`) }}
+{{ $s.Add "links" (dict "title" "Youtube" "url" .Params.youtube_topic "icon" `<i class="fab fa-youtube"></i>`) }}
+{{ $s.Add "links" (dict "title" "Soundcloud" "url" .Params.soundcloud_album "icon" `<i class="fab fa-soundcloud"></i>`) }}
+{{ $s.Add "links" (dict "title" "Bandcamp" "url" .Params.bandcamp "icon" `<i class="fab fa-bandcamp"></i>`) }}
+{{ $s.Add "links" (dict "title" "Musicbrainz" "url" .Params.musicbrainz "icon" `<img class="img-fluid w-100" src="/img/musicbrainz-logo.svg" />`) }}
 
 {{ $s.Set "specs" slice }}
 {{ if .Params.release_date }}
@@ -71,23 +71,26 @@
 
 <section class="py-4">
   <div class="container">
+
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 mb-3">
         <h2>{{ (i18n "links" .) }}</h2>
       </div>
-      <div class="col-md-12">
-        <ul>
-          {{ range (($s.Get "links")) }}
-          {{ $title := .title }}
-          {{ with .url }}
-          <li>
-            <strong>{{ $title }}:</strong>
-            <a style="word-break: break-all;" target="_blank" rel="noopener" href="{{ . }}">{{ . }}</a>
-          </li>
-          {{ end }}
-          {{ end }}
-        </ul>
+    </div>
+
+    <div class="row">
+      {{ range (($s.Get "links")) }}
+      {{ $title := .title }}
+      {{ $icon := .icon }}
+      {{ if .url }}
+      <div class="col-md-2">
+        <a class="shadow-block p-4 d-flex flex-column text-center" target="_blank" rel="noopener" href="{{ .url }}">
+          <div class="m-auto" style="width: 60px; font-size: 60px; color: #000;">{{ $icon | safeHTML }}</div>
+          <h5 class="font-weight-bold">{{ $title }}</h5>
+        </a>
       </div>
+      {{ end }}
+      {{ end }}
     </div>
   </div>
 </section>
