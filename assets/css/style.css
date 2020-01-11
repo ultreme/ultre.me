@@ -1,0 +1,8 @@
+* {
+  font-family: "Comic Sans MS",cursive,sans-serif
+}
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
