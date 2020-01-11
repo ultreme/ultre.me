@@ -4,11 +4,11 @@
 {{ end }}
 
 {{ if .Params.event_start_date }}
-<div>{{ (i18n "event_start_date") }}: <strong>{{ .Params.event_start_date }}</strong></div>
+<div>{{ (i18n "event_start_date") }}: <strong>{{ dateFormat "02 January 2006" .Params.event_start_date }}</strong></div>
 {{ end }}
 
 {{ if .Params.event_end_date }}
-<div>{{ (i18n "event_end_date") }}:  <strong>{{ .Params.event_end_date }}</strong></div>
+<div>{{ (i18n "event_end_date") }}:  <strong>{{ dateFormat "02 January 2006" .Params.event_end_date }}</strong></div>
 {{ end }}
 
 {{ if $kind }}

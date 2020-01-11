@@ -1,5 +1,5 @@
 {{ if .Params.release_date }}
-<div>{{ (i18n "release_date") }}:  <strong>{{ .Params.release_date }}</strong></div>
+<div>{{ (i18n "release_date") }}:  <strong>{{ dateFormat "02 January 2006" .Params.release_date }}</strong></div>
 {{ end }}
 
 <div>{{ i18n "authors" }}: 

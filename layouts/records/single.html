@@ -18,7 +18,9 @@
 {{ $s.Add "links" (dict "title" "Musicbrainz" "url" .Params.musicbrainz) }}
 
 {{ $s.Set "specs" slice }}
-{{ $s.Add "specs" (dict "key" (i18n "official_release_date") "value" .Params.release_date) }}
+{{ if .Params.release_date }}
+{{ $s.Add "specs" (dict "key" (i18n "official_release_date") "value" (dateFormat "02 January 2006" .Params.release_date)) }}
+{{ end }}
 {{ $s.Add "specs" (dict "key" (i18n "music_label") "value" .Params.label) }}
 {{/*
 {{ $s.Add "specs" (dict "key" (i18n "publisher") "value" .Params.publisher) }}

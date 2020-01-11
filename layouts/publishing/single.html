@@ -1,7 +1,9 @@
 {{ define "main" }}
 {{ $s := newScratch }}
 {{ $s.Set "specs" slice }}
-{{ $s.Add "specs" (dict "key" (i18n "release_date") "value" .Params.release_date) }}
+{{ if .Params.release_date }}
+{{ $s.Add "specs" (dict "key" (i18n "release_date") "value" (dateFormat "02 January 2006" .Params.release_date)) }}
+{{ end }}
 {{ $s.Add "specs" (dict "key" "ASIN" "value" .Params.asin) }}
 {{ $s.Add "specs" (dict "key" "ISBN10" "value" .Params.isbn10) }}
 {{ $s.Add "specs" (dict "key" "ISBN13" "value" .Params.isbn13) }}
