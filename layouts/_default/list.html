@@ -9,6 +9,9 @@
       </div>
 
       {{ range sort .Pages ".Title" }}
+
+        <!-- If it's a generated from airtable by checking if "file_path" exists -->
+        {{ if .Params.file_path }}
           {{ $image := $.Site.Params.defaultThumbnailImage }}
           {{ if .Params.artwork }}
           {{ $image = (index .Params.artwork 0).local }}
@@ -27,6 +30,17 @@
               </div>
             </div>
           </div>
+
+          {{ else }}
+
+          <div class="col-md-12">
+              <a href="{{ .RelPermalink }}">
+                <h4>{{ .Title }}</h4>
+                <hr>
+              </a>
+          </div>
+
+          {{ end }}
       {{ end}}
 
     </div>
