@@ -1,0 +1,10 @@
+{{ if .Params.release_date }}
+<div>{{ (i18n "release_date") }}:  <strong>{{ .Params.release_date }}</strong></div>
+{{ end }}
+
+<div>{{ i18n "authors" }}: 
+  {{ range $index, $el := .Params.authors }} 
+  {{ $author_page := $.GetPage .file_path }}
+  {{ if ne $index 0 }} & {{ end }}<a href="{{ $author_page.RelPermalink }}">{{ $author_page.Title }}</a>
+  {{ end }}
+</div>
