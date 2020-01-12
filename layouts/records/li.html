@@ -1,14 +1,23 @@
-{{ $artists := apply .Params.artists "index" "." "name" }}
+{{ $genre := "" }}
+{{ with .Params.genre }}
+{{ $genre = delimit . ", " }}
+{{ end }}
 
-<div class="col-md-12">
-  <a href="{{ .RelPermalink }}">
-    <h4>{{ .Title }}</h4>
-  </a>
-  <div style="color: grey;">Artists:
-    {{ range $index, $el := .Params.artists }} 
-    {{ $artist_page := $.GetPage .file_path }}
-    {{ if ne $index 0 }} & {{ end }}<a href="{{ $artist_page.RelPermalink }}">{{ $artist_page.Title }}</a>
-    {{ end }}
-  </div>
-  <hr>
+{{ if .Params.release_date }}
+<div>{{ (i18n "genre") }}: <strong>{{ dateFormat "02 January 2006" .Params.release_date }}</strong></div>
+{{ end }}
+
+{{ if $genre }}
+<div>{{ (i18n "genre") }}: <strong>{{ $genre }}</strong></div>
+{{ end }}
+
+{{ if .Params.num_tracks }}
+<div>{{ (i18n "no_of_tracks") }}:  <strong>{{ .Params.num_tracks }}</strong></div>
+{{ end }}
+
+<div>{{ i18n "artists" }}: 
+  {{ range $index, $el := .Params.artists }} 
+  {{ $artist_page := $.GetPage .file_path }}
+  {{ if ne $index 0 }} & {{ end }}<a href="{{ $artist_page.RelPermalink }}">{{ $artist_page.Title }}</a>
+  {{ end }}
 </div>

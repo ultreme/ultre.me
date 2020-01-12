@@ -1,0 +1,21 @@
+<div>
+  {{ if .Params.tracks }}
+  <span>{{ (i18n "tracks") }}: <strong>{{ len .Params.tracks }}</strong></span>
+  {{ end }}
+
+  {{ if .Params.books }}
+  <span>{{ (i18n "books") }}: <strong>{{ len .Params.books }}</strong></span>
+  {{ end }}
+
+  {{ if .Params.events }}
+  <span>{{ (i18n "events") }}: <strong>{{ len .Params.events }}</strong></span>
+  {{ end }}
+
+  {{ if .Params.albums }}
+  <span>{{ (i18n "albums") }}: <strong>{{ len .Params.albums }}</strong></span>
+  {{ end }}
+
+  {{ if .Params.projects }}
+  <span>{{ (i18n "projects") }}: <strong>{{ len .Params.projects }}</strong></span>
+  {{ end }}
+</div>

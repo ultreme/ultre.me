@@ -1,0 +1,10 @@
+{{ if .Params.description }}
+<div>{{ .Params.description }}</div>
+{{ end }}
+
+<div>{{ i18n "authors" }}: 
+  {{ range $index, $el := .Params.authors }} 
+  {{ $author_page := $.GetPage .file_path }}
+  {{ if ne $index 0 }} & {{ end }}<a href="{{ $author_page.RelPermalink }}">{{ $author_page.Title }}</a>
+  {{ end }}
+</div>

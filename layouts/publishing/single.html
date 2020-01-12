@@ -1,7 +1,9 @@
 {{ define "main" }}
 {{ $s := newScratch }}
 {{ $s.Set "specs" slice }}
-{{ $s.Add "specs" (dict "key" (i18n "release_date") "value" .Params.release_date) }}
+{{ if .Params.release_date }}
+{{ $s.Add "specs" (dict "key" (i18n "release_date") "value" (dateFormat "02 January 2006" .Params.release_date)) }}
+{{ end }}
 {{ $s.Add "specs" (dict "key" "ASIN" "value" .Params.asin) }}
 {{ $s.Add "specs" (dict "key" "ISBN10" "value" .Params.isbn10) }}
 {{ $s.Add "specs" (dict "key" "ISBN13" "value" .Params.isbn13) }}
@@ -20,6 +22,22 @@
 </section>
 
 {{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
-{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "authors" .) "pages" .Params.authors) }}
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2>{{ (i18n "authors" .) }}</h2>
+      </div>
+    </div>
+    <div class="row">
+      {{ range .Params.authors }}
+      <div class="col-md-2">
+        {{ partial "person-block" (dict "ctx" $ "id" .id) }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
 
 {{ end }}

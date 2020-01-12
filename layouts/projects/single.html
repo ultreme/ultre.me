@@ -16,6 +16,22 @@
 </section>
 
 {{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
-{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "authors" .) "pages" .Params.authors) }}
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2>{{ (i18n "authors" .) }}</h2>
+      </div>
+    </div>
+    <div class="row">
+      {{ range .Params.authors }}
+      <div class="col-md-2">
+        {{ partial "person-block" (dict "ctx" $ "id" .id) }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
 
 {{ end }}

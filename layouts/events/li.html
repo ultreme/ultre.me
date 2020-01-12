@@ -1,0 +1,27 @@
+{{ $kind := "" }}
+{{ with .Params.kind }}
+{{ $kind = delimit . ", " }}
+{{ end }}
+
+{{ if .Params.event_start_date }}
+<div>{{ (i18n "event_start_date") }}: <strong>{{ dateFormat "02 January 2006" .Params.event_start_date }}</strong></div>
+{{ end }}
+
+{{ if .Params.event_end_date }}
+<div>{{ (i18n "event_end_date") }}:  <strong>{{ dateFormat "02 January 2006" .Params.event_end_date }}</strong></div>
+{{ end }}
+
+{{ if $kind }}
+<div>{{ (i18n "kind") }}:  <strong>{{ $kind }}</strong></div>
+{{ end }}
+
+{{ if .Params.location }}
+<div>{{ (i18n "location") }}:  <strong>{{ .Params.location }}</strong></div>
+{{ end }}
+
+<div>{{ i18n "artists" }}: 
+  {{ range $index, $el := .Params.artists }} 
+  {{ $artist_page := $.GetPage .file_path }}
+  {{ if ne $index 0 }} & {{ end }}<a href="{{ $artist_page.RelPermalink }}">{{ $artist_page.Title }}</a>
+  {{ end }}
+</div>
