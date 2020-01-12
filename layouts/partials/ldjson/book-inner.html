@@ -1,0 +1,39 @@
+{{ $at := index .ctx.Site.Data.gen (print "airtable_" .ctx.Lang) }}
+{{ $page := $.ctx.GetPage (index $at .id).file_path }}
+
+{{ $image := "" }}
+{{ with $page.Params.artwork }}
+{{ $image = (index . 0) }}
+{{ end }}
+
+"@context": "https://schema.org",
+"@type": "Book",
+"author": [
+  {{ range $index, $el := $page.Params.authors }}
+  {{ if ne $index 0 }},{{ end }}
+  {{ partial "ldjson/person" (dict "ctx" $ "id" .id) }}
+  {{ end }}
+],
+"bookFormat": "http://schema.org/Hardcover",
+"datePublished": "{{ $page.Params.release_date }}",
+
+{{ with $image }}
+"image": "{{ (resources.Get .local).Permalink }}",
+{{ end }}
+
+"inLanguage": "English", <!-- FIXME: -->
+"isbn": "{{ $page.Params.isbn10 }}",
+"name": "{{ $page.Title }}",
+"numberOfPages": "1234",
+"offers": { <!-- FIXME: -->
+  "@type": "Offer",
+  "availability": "http://schema.org/InStock",
+  "price": "9.99",
+  "priceCurrency": "USD"
+},
+"publisher": "O'Json Publishing", <!-- FIXME: -->
+"sameAs": [
+  {{ with .Params.amazon_link }}
+  "{{ . }}"
+  {{ end }}
+]

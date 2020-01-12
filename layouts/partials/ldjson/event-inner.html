@@ -1,0 +1,29 @@
+{{ $at := index .ctx.Site.Data.gen (print "airtable_" .ctx.Lang) }}
+{{ $page := $.ctx.GetPage (index $at .id).file_path }}
+
+"@context": "https://schema.org",
+"@type": "Event",
+"name": "{{ $page.Title }}",
+"startDate": "{{ $page.Params.event_start_date }}",
+"endDate": "{{ $page.Params.event_end_date }}",
+"location": {
+  "@type": "Place",
+  "name": "{{ $page.Params.location }}",
+  "address": { <!-- FIXME: -->
+    "@type": "PostalAddress",
+    "streetAddress": "{{ $page.Params.location }}",
+  }
+},
+"image": [
+  {{ range $index, $el := $page.Params.artwork }}
+  {{ if ne $index 0 }},{{ end }}
+  "{{ (resources.Get $el.local).Permalink }}"
+  {{ end }}
+  ],
+"description": "{{ $page.Description }}",
+"performer": [
+  {{ range $index, $el := $page.Params.artists }}
+  {{ if ne $index 0 }},{{ end }}
+  {{ partial "ldjson/person" (dict "ctx" $ "id" .id) }}
+  {{ end }}
+]

@@ -1,0 +1,26 @@
+{{ $at := index .ctx.Site.Data.gen (print "airtable_" .ctx.Lang) }}
+{{ $page := $.ctx.GetPage (index $at .id).file_path }}
+
+{{ $image := "" }}
+{{ with $page.Params.artwork }}
+{{ $image = (index . 0) }}
+{{ end }}
+
+{{ $member_of := "" }}
+{{ with $page.Params.member_of }}
+{{ $member_of = (index . 0) }}
+{{ end }}
+
+"@context": "https://schema.org",
+"@type": "Person",
+
+{{ with $image }}
+"image": "{{ (resources.Get .local).Permalink }}",
+{{ end }}
+
+{{ with $member_of }}
+"memberOf": "{{ .name }}",
+{{ end }}
+
+"inLanguage": "{{ .cts.Lang }}",
+"name": "{{ $page.Title }}"
