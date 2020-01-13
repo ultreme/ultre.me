@@ -1,8 +1,3 @@
-{{ $image := "" }}
-{{ if .Params.artwork }}
-{{ $image = index .Params.artwork 0 }}
-{{ end }}
-
 <section class="pb-4 pt-0">
   <div class="container">
 
@@ -27,7 +22,7 @@
       {{ range .Params.artwork }}
       <div class="col-md-3 mb-3">
         <div class="img-block">
-          <img src="{{ ((resources.Get $image.local).Resize `250x jpg`).RelPermalink }}">
+          <img src="{{ ((resources.Get .local).Resize `250x jpg`).RelPermalink }}">
         </div>
       </div>
       {{ end }}
