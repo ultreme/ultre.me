@@ -24,6 +24,6 @@
 "performer": [
   {{ range $index, $el := $page.Params.artists }}
   {{ if ne $index 0 }},{{ end }}
-  {{ partial "ldjson/person" (dict "ctx" $ "id" .id) }}
+  {{ partial "ldjson/person-inner" (dict "ctx" $.ctx "id" .id) }}
   {{ end }}
 ]

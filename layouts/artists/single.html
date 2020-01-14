@@ -1,3 +1,7 @@
+{{ define "head" }}
+{{ partial "ldjson/person" (dict "ctx" . "id" .Params.id) }}
+{{ end }}
+
 {{ define "main" }}
 {{ $s := newScratch }}
 {{ $s.Set "specs" slice }}

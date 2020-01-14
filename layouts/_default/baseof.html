@@ -91,7 +91,11 @@
     <style>
       {{ (resources.Get "css/fontawesome.css" | resources.Minify | fingerprint).Content | safeCSS }}
       {{ (resources.Get "css/style.css" | resources.Minify | fingerprint).Content | safeCSS }}
-      </style>
+    </style>
+
+    {{ partial "ldjson/breadcrumb" . }}
+
+    {{ block "head" . }}{{ end }}
 
   </head>
   <body>
