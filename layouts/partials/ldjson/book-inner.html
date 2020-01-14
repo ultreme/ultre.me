@@ -11,7 +11,9 @@
 "author": [
   {{ range $index, $el := $page.Params.authors }}
   {{ if ne $index 0 }},{{ end }}
-  {{ partial "ldjson/person-inner" (dict "ctx" $.ctx "id" .id) }}
+  {
+    {{ partial "ldjson/person-inner" (dict "ctx" $.ctx "id" .id) }}
+  }
   {{ end }}
 ],
 "bookFormat": "http://schema.org/Hardcover",
