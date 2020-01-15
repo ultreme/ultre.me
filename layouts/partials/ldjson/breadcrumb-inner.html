@@ -32,7 +32,7 @@
   "item": 
   {
     "@id": "{{ .page.Permalink}}",
-    "name": "{{ if .page.Params.BreadcrumbListName }}{{ .page.Params.BreadcrumbListName }}{{ else }}{{ .page.Title }}{{ end }}"
+    "name": "{{ with .page.Params.breadcrumb_title }}{{ . }}{{ else }}{{ .page.Title }}{{ end }}"
   }       
 }
 {{- end -}}
