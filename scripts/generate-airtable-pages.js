@@ -26,6 +26,8 @@ async function main() {
     'Drawings%20%26%20Pictures',
     'Writings',
     'Tags',
+    'Publishers',
+    'Locations'
   ];
 
   try {
