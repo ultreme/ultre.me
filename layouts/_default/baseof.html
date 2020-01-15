@@ -93,6 +93,10 @@
       {{ (resources.Get "css/style.css" | resources.Minify | fingerprint).Content | safeCSS }}
     </style>
 
+    <!-- LD+JSON -->
+    {{ partial "ldjson/organization" . }}
+    {{ partial "ldjson/website" . }}
+    {{ partial "ldjson/webpage" . }}
     {{ partial "ldjson/breadcrumb" . }}
 
     {{ block "head" . }}{{ end }}

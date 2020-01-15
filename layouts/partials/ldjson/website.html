@@ -1,11 +1,5 @@
 <script type="application/ld+json">
 {
-  "@type": "Website",
-  "@context": "http://schema.org",
-  "name": "{{ .Site.Title }}",
-  "description": "{{ .Site.Params.defaultDescription }}",
-  "url": "{{ .Site.BaseURL }}",
-  "image": "", <!-- FIXME: -->
-  "sameAs": [] <!-- FIXME: -->
+  {{ partial "ldjson/website-inner" . | safeJS }}
 }
 </script>
