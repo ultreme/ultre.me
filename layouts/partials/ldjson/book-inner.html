@@ -28,8 +28,24 @@
   {{ end }}
 ],
 
-"isbn": "{{ $page.Params.isbn10 }}",
+{{ with $page.Params.publisher }}
+"publisher": "{{ (index . 0).title }}",
+{{ end }}
+
+{{ with $page.Params.isbn10 }}
+"isbn": "{{ . }}",
+{{ end }}
+
+"bookFormat": [
+  {{ range $index, $el := $page.Params.format }}
+  {{ if ne $index 0 }},{{ end }}
+  "{{ printf "http://schema.org/%s" . }}"
+  {{ end }}
+],
+
+{{ with $page.Params.language }}
+"inLanguage": "{{ . }}",
+{{ end }}
+
 "name": "{{ $page.Title }}",
-"publisher": "", <!-- FIXME: -->
-"bookFormat": "http://schema.org/Hardcover", <!-- FIXME: -->
 "datePublished": "{{ $page.Params.release_date }}"
