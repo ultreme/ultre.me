@@ -15,8 +15,16 @@
 <div>{{ (i18n "kind") }}:  <strong>{{ $kind }}</strong></div>
 {{ end }}
 
-{{ if .Params.location }}
-<div>{{ (i18n "location") }}:  <strong>{{ .Params.location }}</strong></div>
+{{ with .Params.location }}
+{{ $location := (index . 0) }}
+{{ $full_location := slice }}
+{{ with $location.address  }}{{ $full_location = $full_location | append . }}{{ end }}
+{{ with $location.region  }}{{ $full_location = $full_location | append . }}{{ end }}
+{{ with $location.city  }}{{ $full_location = $full_location | append . }}{{ end }}
+{{ with $location.country  }}{{ $full_location = $full_location | append . }}{{ end }}
+{{ $full_location = delimit $full_location ", " }}
+{{ $title := cond (eq (trim $full_location " ") (trim $location.title " ")) $location.title (print $location.title " " $full_location) }}
+<div>{{ (i18n "location") }}:  <strong>{{ $title }}</strong></div>
 {{ end }}
 
 <div>{{ i18n "artists" }}: 
