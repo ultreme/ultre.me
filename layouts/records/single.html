@@ -86,28 +86,28 @@
 </section>
 
 <section class="py-4">
-  <div class="container">
+    <div class="container">
 
-    <div class="row">
-      <div class="col-md-12 mb-3">
-        <h2>{{ (i18n "links" .) }}</h2>
-      </div>
-    </div>
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <h2>{{ (i18n "links" .) }}</h2>
+            </div>
+        </div>
 
-    <div class="row">
-      {{ range (($s.Get "links")) }}
-      {{ $title := .title }}
-      {{ $icon := .icon }}
-      {{ if .url }}
-      <div class="col-md-2 col-6 mb-3">
-        <a class="shadow-block p-4 d-flex flex-column text-center" target="_blank" rel="noopener" href="{{ .url }}">
-          <div class="m-auto" style="width: 40px; font-size: 40px; color: #000;">{{ $icon | safeHTML }}</div>
-          <h5 class="font-weight-bold">{{ $title }}</h5>
-        </a>
-      </div>
-      {{ end }}
-      {{ end }}
+        <div class="row">
+            {{ range (($s.Get "links")) }}
+            {{ $title := .title }}
+            {{ $icon := .icon }}
+            {{ if .url }}
+            <div class="col-md-2 col-6 mb-3">
+                <a class="shadow-block p-4 d-flex flex-column text-center" target="_blank" rel="noopener" href="{{ .url }}">
+                    <div class="m-auto" style="width: 40px; font-size: 40px; color: #000;">{{ $icon | safeHTML }}</div>
+                    <h5 class="font-weight-bold">{{ $title }}</h5>
+                </a>
+            </div>
+            {{ end }}
+            {{ end }}
+        </div>
     </div>
-  </div>
 </section>
 {{ end }}

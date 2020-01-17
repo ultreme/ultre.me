@@ -7,16 +7,16 @@
         {{ $is_link := .is_link }}
         {{ $key := .key }}
         {{ with .value }}
-        <div>
-          <strong>{{ $key }}:</strong> 
-          {{ if $is_link }}
-            <a target="_blank" rel="noopener" href="{{ . }}">{{ . }}</a>
-          {{ else }}
-            {{ . }}
+          <div>
+              <strong>{{ $key }}:</strong>
+              {{ if $is_link }}
+              <a target="_blank" rel="noopener" href="{{ . }}">{{ . }}</a>
+              {{ else }}
+              {{ . }}
+              {{ end }}
+          </div>
           {{ end }}
-        </div>
-        {{ end }}
-        {{ end }}
+          {{ end }}
       </div>
     </div>
 

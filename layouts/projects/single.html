@@ -1,37 +1,54 @@
 {{ define "main" }}
 {{ $s := newScratch }}
 {{ $s.Set "specs" slice }}
+{{ $s.Add "specs" (dict "key" "Homepage" "value" .Params.homepage "is_link" true) }}
 {{ $s.Add "specs" (dict "key" "URL" "value" .Params.url "is_link" true) }}
+{{ $s.Add "specs" (dict "key" "GitHub" "value" .Params.github_url "is_link" true) }}
+{{ $s.Add "specs" (dict "key" "YouTube" "value" .Params.youtube_url "is_link" true) }}
 
 {{ partial "single-hero" . }}
 
 <section>
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <p>{{ .Params.description }}</p>
-      </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <p>{{ .Params.description }}</p>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
+
+
+{{ with .Params.tags }}
+<section>
+    <div class="container">
+        <div class="row">
+            {{ range $index, $el := $.Params.tags}}
+            {{ $tag_page := $.GetPage (printf "/tags/%s" $el) }}
+            <a class="badge badge-primary mx-1" href="{{ $tag_page.RelPermalink }}">{{ $tag_page.Title }}</a>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}
 
 {{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
 
 <section>
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <h2>{{ (i18n "authors" .) }}</h2>
-      </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>{{ (i18n "authors" .) }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            {{ range .Params.authors }}
+            <div class="col-md-3 col-sm-6">
+                {{ partial "person-block" (dict "ctx" $ "id" .id) }}
+            </div>
+            {{ end }}
+        </div>
     </div>
-    <div class="row">
-      {{ range .Params.authors }}
-      <div class="col-md-2">
-        {{ partial "person-block" (dict "ctx" $ "id" .id) }}
-      </div>
-      {{ end }}
-    </div>
-  </div>
 </section>
 
 {{ end }}

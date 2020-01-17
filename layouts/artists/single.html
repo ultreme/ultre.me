@@ -1,8 +1,45 @@
 {{ define "main" }}
 {{ $s := newScratch }}
+
+{{ $s.Set "links" slice }}
+{{ $s.Add "links" (dict "title" "Homepage" "url" .Params.homepage "icon" `<i class="fas fa-home"></i>`) }}
+{{ $s.Add "links" (dict "title" "SoundCloud" "url" .Params.soundcloud_url "icon" `<i class="fab fa-soundcloud"></i>`) }}
+{{ $s.Add "links" (dict "title" "Spotify" "url" .Params.spotify_url "icon" `<i class="fab fa-spotify"></i>`) }}
+{{ $s.Add "links" (dict "title" "iTunes" "url" .Params.itunes_url "icon" `<i class="fab fa-itunes"></i>`) }}
+{{ $s.Add "links" (dict "title" "Youtube" "url" .Params.youtube_url "icon" `<i class="fab fa-youtube"></i>`) }}
+{{ $s.Add "links" (dict "title" "Youtube Topic" "url" .Params.youtube_topic_url "icon" `<i class="fab fa-youtube-square"></i>`) }}
+{{ $s.Add "links" (dict "title" "Deezer" "url" .Params.deezer_url "icon" `<img class="img-fluid w-100" src="/img/deezer-logo.svg" />`) }}
+{{ $s.Add "links" (dict "title" "Amazon" "url" .Params.amazon_url "icon" `<i class="fab fa-amazon"></i>`) }}
+{{ $s.Add "links" (dict "title" "Last.fm" "url" .Params.last_fm_url "icon" `<i class="fab fa-lastfm"></i>`) }}
+{{ $s.Add "links" (dict "title" "Napster" "url" .Params.napster_url "icon" `<i class="fab fa-napster"></i>`) }}
+{{ $s.Add "links" (dict "title" "Google Play" "url" .Params.google_play_url "icon" `<i class="fab fa-google-play"></i>`) }}
+{{ $s.Add "links" (dict "title" "Facebook" "url" .Params.facebook_url "icon" `<i class="fab fa-facebook-f"></i>`) }}
+{{ $s.Add "links" (dict "title" "Tidal" "url" .Params.tidal_url "icon" `<img class="img-fluid w-100" src="/img/tidal-logo.svg" />`) }}
+{{ $s.Add "links" (dict "title" "Bandcamp" "url" .Params.bandcamp_url "icon" `<i class="fab fa-bandcamp"></i>`) }}
+{{ $s.Add "links" (dict "title" "Google Search" "url" .Params.google_search_url "icon" `<i class="fab fa-google"></i>`) }}
+{{ $s.Add "links" (dict "title" "Musicbrainz" "url" .Params.musicbrainz_url "icon" `<img class="img-fluid w-100" src="/img/musicbrainz-logo.svg" />`) }}
+{{ $s.Add "links" (dict "title" "Wikidata" "url" .Params.wikidata_url "icon" `<i class="fab fa-wikipedia-w"></i>`) }}
+
+<!--
+     iheartradio
+     genius
+     anghami
+     soundrop
+     senscritique
+     discogs
+     bandsintown
+     musicoin
+     cd baby
+     chartsinfrance
+     medianet
+     zasluchani
+     -->
+
 {{ $s.Set "specs" slice }}
+{{/*
 {{ $s.Add "specs" (dict "key" (i18n "no_of_albums") "value" .Params.num_albums) }}
 {{ $s.Add "specs" (dict "key" (i18n "no_of_tracks") "value" .Params.num_tracks) }}
+*/}}
 
 {{ partial "single-hero" . }}
 
@@ -20,6 +57,7 @@
 
 {{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
 
+<!--
 {{ with .Params.tracks }}
 <section class="py-4">
   <div class="container">
@@ -32,7 +70,7 @@
         {{ i18n "no_data"}}
         {{ else }}
         <ul>
-          {{ range $.Params.tracks }}
+          {{ range sort $.Params.tracks "name" }}
           <li>{{ .name }}</li>
           {{ end }}
         </ul>
@@ -42,9 +80,36 @@
   </div>
 </section>
 {{ end }}
+-->
 
 {{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "books" .) "pages" .Params.books) }}
 {{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "events" .) "pages" .Params.events) }}
 {{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "albums" .) "pages" .Params.albums) }}
 {{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "projects" .) "pages" .Params.hacks) }}
+
+<section class="py-4">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-12 mb-3">
+                <h2>{{ (i18n "links" .) }}</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            {{ range (($s.Get "links")) }}
+            {{ $title := .title }}
+            {{ $icon := .icon }}
+            {{ if .url }}
+            <div class="col-md-4 col-sm-6 col-lg-3 col-6 mb-3">
+                <a class="shadow-block p-4 d-flex flex-column text-center" target="_blank" rel="noopener" href="{{ .url }}">
+                    <div class="m-auto" style="width: 40px; font-size: 40px; color: #000;">{{ $icon | safeHTML }}</div>
+                    <h5 class="font-weight-bold">{{ $title }}</h5>
+                </a>
+            </div>
+            {{ end }}
+            {{ end }}
+        </div>
+    </div>
+</section>
 {{ end }}
