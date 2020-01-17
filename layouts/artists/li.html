@@ -1,3 +1,13 @@
+{{ with .Params.tags }}
+<div>{{ i18n "tags" }}:
+    {{ range $index, $el := $.Params.tags -}}
+    {{- $tag_page := $.GetPage (printf "/tags/%s" $el) -}}
+    {{ if ne $index 0 }}, {{ end }}<a href="{{ $tag_page.RelPermalink }}">{{ $tag_page.Title }}</a>
+    {{- end }}
+</div>
+{{ end }}
+
+
 <div>
   {{ if .Params.tracks }}
   <span>{{ (i18n "tracks") }}: <strong>{{ len .Params.tracks }}</strong></span>

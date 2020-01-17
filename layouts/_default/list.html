@@ -5,10 +5,11 @@
     <div class="row">
 
       <div class="col-md-12 mb-5">
-        <h1>{{ .Title }} &mdash; <span class="font-weight-bold">{{ len .Pages }}</span></h1>
+          <!--<h1>{{ .Title }} &mdash; <span class="font-weight-bold">{{ len .Pages }}</span></h1>-->
+          <h1>{{ .Title }}</h1>
       </div>
 
-      {{ range sort .Pages ".Title" }}
+      {{ range sort .Pages ".Weight" }}
 
         <!-- If it's a generated from airtable by checking if "file_path" exists -->
         {{ if .Params.file_path }}
@@ -17,11 +18,11 @@
           {{ $image = (index .Params.artwork 0).local }}
           {{ end }}
 
-          <div class="col-md-4 list-item">
+          <div class="col-md-6 col-lg-4 col-sm-12 list-item">
             <div class="list-item-inner">
               <a href="{{ .RelPermalink }}">
                 <div class="list-item-image">
-                  <img class="img-fluid" src="{{ ((resources.Get $image).Resize `420x jpg`).RelPermalink }}" />
+                  <img class="img-fluid" src="{{ ((resources.Get $image).Resize `600x jpg`).RelPermalink }}" />
                 </div>
                 <h4 class="title mx-3 mt-3">{{ .Title }}</h4>
               </a>

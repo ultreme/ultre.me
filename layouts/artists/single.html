@@ -6,30 +6,33 @@
 
 {{ partial "single-hero" . }}
 
+{{ with .Params.bio }}
 <section>
   <div class="container">
     <div class="row">
       <div class="col">
-        <p>{{ .Params.bio }}</p>
+        <p>{{ $.Params.bio }}</p>
       </div>
     </div>
   </div>
 </section>
+{{ end }}
 
 {{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
 
+{{ with .Params.tracks }}
 <section class="py-4">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h2>{{ i18n "tracks" . }}</h2> 
+        <h2>{{ i18n "tracks" . }}</h2>
       </div>
       <div class="col-md-12">
-        {{ if not .Params.tracks }}
+        {{ if not $.Params.tracks }}
         {{ i18n "no_data"}}
         {{ else }}
         <ul>
-          {{ range .Params.tracks }}
+          {{ range $.Params.tracks }}
           <li>{{ .name }}</li>
           {{ end }}
         </ul>
@@ -38,9 +41,10 @@
     </div>
   </div>
 </section>
+{{ end }}
 
-{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "books" .) "pages" .Params.books) }} 
+{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "books" .) "pages" .Params.books) }}
 {{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "events" .) "pages" .Params.events) }}
-{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "albums" .) "pages" .Params.albums) }} 
+{{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "albums" .) "pages" .Params.albums) }}
 {{ partial "list-relation-pages" (dict "ctx" . "title" (i18n "projects" .) "pages" .Params.hacks) }}
 {{ end }}

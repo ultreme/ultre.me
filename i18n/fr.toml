@@ -1,6 +1,9 @@
 [showall]
 other = "Revenir à la section {{ .entity }}"
 
+[tags]
+other = "Tags"
+
 [tracks]
 other = "Tracks"
 

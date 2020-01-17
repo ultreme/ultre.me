@@ -77,7 +77,7 @@
     </div>
     <div class="row">
       {{ range .Params.artists }}
-      <div class="col-md-2">
+      <div class="col-md-3 col-sm-6">
         {{ partial "person-block" (dict "ctx" $ "id" .id) }}
       </div>
       {{ end }}

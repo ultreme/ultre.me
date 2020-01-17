@@ -20,9 +20,11 @@
 
     <div class="row">
       {{ range .Params.artwork }}
-      <div class="col-md-3 mb-3">
+      <div class="col-md-3 col-sm-6 mb-3">
         <div class="img-block">
-          <img src="{{ ((resources.Get .local).Resize `250x jpg`).RelPermalink }}">
+          <a href="{{ (resources.Get .local).RelPermalink }}">
+            <img src="{{ ((resources.Get .local).Resize `700x jpg`).RelPermalink }}">
+          </a>
         </div>
       </div>
       {{ end }}

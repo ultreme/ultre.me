@@ -1,6 +1,9 @@
 [showall]
 other = "Show all {{ .entity }}"
 
+[tags]
+other = "Tags"
+
 [tracks]
 other = "Tracks"
 
