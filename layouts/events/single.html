@@ -1,8 +1,25 @@
+{{ define "head" }}
+{{ partial "ldjson/event" (dict "ctx" . "id" .Params.id) }}
+{{ end }}
+
 {{ define "main" }}
 
 {{ $kind := "" }}
 {{ with .Params.kind }}
 {{ $kind = delimit . ", " }}
+{{ end }}
+
+{{ $event_location := "" }}
+{{ with .Params.location }}
+{{ $location := (index . 0) }}
+{{ $full_location := slice }}
+{{ with $location.address  }}{{ $full_location = $full_location | append . }}{{ end }}
+{{ with $location.region  }}{{ $full_location = $full_location | append . }}{{ end }}
+{{ with $location.city  }}{{ $full_location = $full_location | append . }}{{ end }}
+{{ with $location.country  }}{{ $full_location = $full_location | append . }}{{ end }}
+{{ with $location.postal_code  }}{{ $full_location = $full_location | append . }}{{ end }}
+{{ $full_location = delimit $full_location ", " }}
+{{ $event_location = cond (eq (trim $full_location " ") (trim $location.title " ")) $location.title (print $location.title " " $full_location) }}
 {{ end }}
 
 {{ $s := newScratch }}
@@ -16,7 +33,7 @@
 {{ $s.Add "specs" (dict "key" (i18n "kind") "value" $kind) }}
 {{ $s.Add "specs" (dict "key" (i18n "official_event_page") "value" .Params.official_event_page "is_link" true) }}
 {{ $s.Add "specs" (dict "key" "Mixcloud" "value" .Params.mixcloud "is_link" true) }}
-{{ $s.Add "specs" (dict "key" (i18n "location") "value" .Params.location) }}
+{{ $s.Add "specs" (dict "key" (i18n "location") "value" $event_location) }}
 
 {{ partial "single-hero" . }}
 

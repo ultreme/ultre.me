@@ -1,0 +1,16 @@
+{{ $logo := (resources.Get .Site.Params.logo) }}
+{{ $same_as := slice }}
+
+"@context": "https://schema.org",
+"@type": "Organization",
+"url": "{{ .Site.BaseURL }}",
+"sameAs": {{ $same_as | jsonify }},
+"@id": "{{ .Site.BaseURL }}#organization",
+"name": "{{ .Site.Params.organization_name }}",
+"logo":{
+  "@type": "ImageObject",
+  "@context": "http://schema.org",
+  "url": "{{ $logo.Permalink }}",
+  "width": "{{ $logo.Width }}",
+  "height": "{{ $logo.Height }}"
+}

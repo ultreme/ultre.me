@@ -26,6 +26,8 @@ async function main() {
     'Drawings%20%26%20Pictures',
     'Writings',
     'Tags',
+    'Publishers',
+    'Locations'
   ];
 
   try {
@@ -367,8 +369,8 @@ function joinRelations(items) {
           return v;
         }).filter(i => i);
       }
-      else if (normalized[value]) {
-        return normalized[value];
+      else if (normalized[value] && key != 'id') {
+        newValue = normalized[value];
       }
 
       result[key] = newValue;

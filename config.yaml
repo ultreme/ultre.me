@@ -25,6 +25,8 @@ params:
   defaultFeaturedImage: /img/gomme.jpg
   defaultDescription: Ultreme M1ch3l
   defaultThumbnailImage: /img/gomme.jpg
+  organization_name: Ultreme M1ch3l
+  logo: /img/gomme.jpg
 imaging:
   resampleFilter: MitchellNetravali
   quality: 95

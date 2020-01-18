@@ -1,0 +1,16 @@
+{{ $logo := resources.Get .Site.Params.logo }}
+{{ $same_as := slice }}
+
+"@type": "Website",
+"@context": "http://schema.org",
+"name": "{{ .Site.Title }}",
+"description": "{{ .Site.Params.defaultDescription }}",
+"url": "{{ .Site.BaseURL }}",
+"image": {
+  "@type": "ImageObject",
+  "@context": "http://schema.org",
+  "url": "{{ $logo.Permalink }}",
+  "width": "{{ $logo.Width }}",
+  "height": "{{ $logo.Height }}"
+},
+"sameAs": {{ $same_as | jsonify }}

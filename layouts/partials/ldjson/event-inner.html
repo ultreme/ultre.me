@@ -1,0 +1,59 @@
+{{ $at := index .ctx.Site.Data.gen (print "airtable_" .ctx.Lang) }}
+{{ $page := $.ctx.GetPage (index $at .id).file_path }}
+
+{{ if and $page.Params.location $page.Params.event_start_date }}
+{{ $location := index $page.Params.location 0 }}
+{{ if $location.is_physical }}
+
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "{{ $page.Title }}",
+
+  "location": {
+    "@type": "Place",
+    "name": "{{ $location.title }}",
+    "address": {
+      "@type": "PostalAddress",
+      {{ with $location.city }}
+      "addressLocality": "{{ . }}",
+      {{ end }}
+      {{ with $location.region }}
+      "addressRegion": "{{ . }}",
+      {{ end }}
+      {{ with $location.postal_code }}
+      "postalCode": "{{ . }}"
+      {{ end }}
+      "streetAddress": "{{ $location.address }}"
+    }
+  },
+
+  {{ with $page.Params.event_start_date }}
+  "startDate": "{{ replace . "T00:00:00.000Z" "" }}",
+  {{ end }}
+
+  {{ with $page.Params.event_end_date }}
+  "endDate": "{{ replace . "T00:00:00.000Z" "" }}",
+  {{ end }}
+
+  {{ with $page.Params.language }}
+  "inLanguage": "{{ . }}",
+  {{ end }}
+
+  "image": [
+    {{ range $index, $el := $page.Params.artwork }}
+    {{ if ne $index 0 }},{{ end }}
+    "{{ (resources.Get $el.local).Permalink }}"
+    {{ end }}
+    ],
+  "description": "{{ $page.Description }}",
+  "performer": [
+    {{ range $index, $el := $page.Params.artists }}
+    {{ if ne $index 0 }},{{ end }}
+    {
+      {{ partial "ldjson/person-inner" (dict "ctx" $.ctx "id" .id) }}
+    }
+    {{ end }}
+  ]
+
+{{ end }}
+{{ end }}

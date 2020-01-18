@@ -1,0 +1,51 @@
+{{ $at := index .ctx.Site.Data.gen (print "airtable_" .ctx.Lang) }}
+{{ $page := $.ctx.GetPage (index $at .id).file_path }}
+
+{{ $image := "" }}
+{{ with $page.Params.artwork }}
+{{ $image = (index . 0) }}
+{{ end }}
+
+"@context": "https://schema.org",
+"@type": "Book",
+
+"author": [
+  {{ range $index, $el := $page.Params.authors }}
+  {{ if ne $index 0 }},{{ end }}
+  {
+    {{ partial "ldjson/person-inner" (dict "ctx" $.ctx "id" .id) }}
+  }
+  {{ end }}
+],
+
+{{ with $image }}
+"image": "{{ (resources.Get .local).Permalink }}",
+{{ end }}
+
+"sameAs": [
+  {{ with .Params.amazon_link }}
+  "{{ . }}"
+  {{ end }}
+],
+
+{{ with $page.Params.publisher }}
+"publisher": "{{ (index . 0).title }}",
+{{ end }}
+
+{{ with $page.Params.isbn10 }}
+"isbn": "{{ . }}",
+{{ end }}
+
+"bookFormat": [
+  {{ range $index, $el := $page.Params.format }}
+  {{ if ne $index 0 }},{{ end }}
+  "{{ printf "http://schema.org/%s" . }}"
+  {{ end }}
+],
+
+{{ with $page.Params.language }}
+"inLanguage": "{{ . }}",
+{{ end }}
+
+"name": "{{ $page.Title }}",
+"datePublished": "{{ $page.Params.release_date }}"

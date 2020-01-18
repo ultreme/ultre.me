@@ -87,7 +87,15 @@
     <style>
       {{ (resources.Get "css/fontawesome.css" | resources.Minify | fingerprint).Content | safeCSS }}
       {{ (resources.Get "css/style.css" | resources.Minify | fingerprint).Content | safeCSS }}
-      </style>
+    </style>
+
+    <!-- LD+JSON -->
+    {{ partial "ldjson/organization" . }}
+    {{ partial "ldjson/website" . }}
+    {{ partial "ldjson/webpage" . }}
+    {{ partial "ldjson/breadcrumb" . }}
+
+    {{ block "head" . }}{{ end }}
 
   </head>
   <body>
