@@ -1,6 +1,11 @@
 .PHONY: dev
 dev:
-	./pre-build.sh && hugo server -D -F --disableFastRender --bind=0.0.0.0 --baseURL=/ --appendPort=false --enableGitInfo
+	./pre-build.sh
+	make server
+
+.PHONY: server
+server:
+	hugo server -D -F --disableFastRender --bind=0.0.0.0 --baseURL=/ --appendPort=false --enableGitInfo
 
 .PHONY: build
 build:
