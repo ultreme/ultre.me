@@ -1,0 +1,4 @@
+bbb3
+{{ range sort .Pages ".Weight" }}
+{{ .Render "li_full" }}
+{{ end}}
