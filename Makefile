@@ -1,7 +1,10 @@
 .PHONY: dev
-dev:
+dev: node_modules
 	./pre-build.sh
 	make server
+
+node_modules:
+	npm install
 
 .PHONY: server
 server:

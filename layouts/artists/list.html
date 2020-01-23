@@ -23,7 +23,7 @@
 
             {{ range sort .Pages ".Weight" }}
             {{ if eq .Params.external_collaborator true }}
-            {{ .Render "li_full" }}
+            {{ .Render "minili_full" }}
             {{ end }}
             {{ end }}
         </div>

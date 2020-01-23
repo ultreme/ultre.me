@@ -1,0 +1,31 @@
+        <!-- If it's a generated from airtable by checking if "file_path" exists -->
+        {{ if .Params.file_path }}
+          {{ $image := $.Site.Params.defaultThumbnailImage }}
+          {{ if .Params.artwork }}
+          {{ $image = (index .Params.artwork 0).local }}
+          {{ end }}
+
+        <div class="col-md-4 col-lg-3 col-sm-12 list-item mini">
+            <div class="list-item-inner">
+              <a href="{{ .RelPermalink }}">
+                <div class="list-item-image">
+                  <img class="img-fluid" src="{{ ((resources.Get $image).Resize `400x jpg`).RelPermalink }}" />
+                </div>
+                <h4 class="title mx-3 mt-3">{{ .Title }}</h4>
+              </a>
+              <div class="list-item-info">
+                {{ .Render "minili" }}
+              </div>
+            </div>
+          </div>
+
+          {{ else }}
+
+          <div class="col-md-12">
+              <a href="{{ .RelPermalink }}">
+                <h4>{{ .Title }}</h4>
+                <hr>
+              </a>
+          </div>
+
+          {{ end }}

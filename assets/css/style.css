@@ -48,6 +48,9 @@ nav {
   width: 100%;
   object-fit: cover;
 }
+.list-item.mini .list-item-image img {
+    height: 200px;
+}
 .list-item .title {
   margin-bottom: 5px;
 }
