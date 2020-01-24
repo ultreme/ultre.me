@@ -9,7 +9,7 @@
                 <h1>{{ .Title }}</h1>
             </div>
 
-            {{ range sort .Pages ".Weight" }}
+            {{ range (.Pages.ByParam "Title").ByParam "Weight" }}
             {{ if not (eq .Params.external_collaborator true) }}
             {{ .Render "li_full" }}
             {{ end }}
@@ -21,7 +21,7 @@
                 <h2>Collaborations</h2>
             </div>
 
-            {{ range sort .Pages ".Weight" }}
+            {{ range (.Pages.ByParam "Title").ByParam "Weight" }}
             {{ if eq .Params.external_collaborator true }}
             {{ .Render "minili_full" }}
             {{ end }}

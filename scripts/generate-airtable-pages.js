@@ -411,8 +411,11 @@ async function downloadAttachmentsFromItems(items) {
 }
 
 async function downloadAttachment(url, destination) {
-  log(`Downloading attachment ${url}`);
   const filepath = getAttachmentPath(destination);
+  if (fs.existsSync(filepath)) {
+    return;
+  }
+  log(`Downloading attachment ${url}`);
   fs.mkdirSync(path.dirname(filepath), { recursive: true });
 
   const res = await fetch(url);

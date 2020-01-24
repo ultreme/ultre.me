@@ -1,7 +1,9 @@
 .PHONY: dev
-dev: node_modules
-	./pre-build.sh
-	make server
+dev: pre-build server
+
+.PHONY: pre-build
+pre-build: node_modules
+	node ./scripts/generate-airtable-pages.js
 
 node_modules:
 	npm install
@@ -11,8 +13,8 @@ server:
 	hugo server -D -F --disableFastRender --bind=0.0.0.0 --baseURL=/ --appendPort=false --enableGitInfo
 
 .PHONY: build
-build:
+build: pre-build
 	rm -rf public
-	./pre-build.sh && hugo --gc --minify
+	hugo --gc --minify
 	./go-get.sh
 	find public -type f -ls
