@@ -3,12 +3,15 @@
 {{ $records_page := $.GetPage "/records" }}
 {{ $publishing_page := $.GetPage "/publishing" }}
 
-<div class="container">
-  <div class="row">
+<div class="container page-home">
+  <!--<div class="row">
     <h2>{{ .Params.intro_text | safeHTML }}</h2>
-  </div>
-  <div class="row">
+  </div>-->
+  <!--<div class="row">
       <img src="/enter.gif" />
+  </div>-->
+  <div class="row" id="workspace">
+      <img src="/screen-empty.png" id="screen" />
   </div>
   <!--
   <div class="row align-items-center">
@@ -55,5 +58,65 @@
   </div>
   -->
 </div>
+{{ end }}
+
+{{ define "custom_js" }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+<script type="text/javascript">
+ var lines = [];
+ function setup() {
+     var workspace = $('#workspace')
+     var canvas = createCanvas(workspace.width(), workspace.height());
+     canvas.parent('workspace')
+     background(0);
+     lines.push(new Line("lime"));
+     lines.push(new Line("cyan"));
+ }
+ function draw() {
+     background(0, 0, 0, 10);
+     for (let l of lines) {
+         l.update();
+         l.draw();
+     }
+ }
+ function windowResized() {
+     var workspace = $('#workspace')
+     resizeCanvas(workspace.width(), workspace.height());
+     centerCanvas();
+ }
+ class Line {
+     constructor(color) {
+         this.color = color;
+         this.p1 = new Point();
+         this.p2 = new Point();
+     }
+     update() {
+         this.p1.update();
+         this.p2.update();
+     }
+     draw() {
+         stroke(this.color);
+         line(this.p1.x, this.p1.y, this.p2.x, this.p2.y);
+     }
+ }
+ class Point {
+     constructor() {
+         this.x = random(0, width);
+         this.y = random(0, height);
+         this.vx = random(-5, 5);
+         this.vy = random(-5, 5);
+     }
+     update() {
+         this.x += this.vx;
+         this.y += this.vy;
+         if (this.x < 0 || this.x > width) {
+             this.vx *= -1;
+         }
+         if (this.y < 0 || this.y > height) {
+             this.vy *= -1;
+         }
+     }
+ }
+</script>
 
 {{ end }}

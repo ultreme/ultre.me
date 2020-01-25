@@ -89,3 +89,32 @@ a.shadow-block:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 15px rgba(171, 174, 209, .8);
 }
+/*
+keyframes screensaver_text {
+    0%    { left:20%; top:0px; }
+    25%   { left:50%; top:250%; }
+    50%   { left:30%; top:500%; }
+    75%   { left:0%;  top:250%; }
+    100%  { left:20%; top:0%; }
+}
+.page-home #screensaver_text {
+    border: 1px solid red;
+    animation-name: screensaver_text;
+    animation-timing-function: linear;
+    animation-duration: 10s;
+    animation-play-state: running;
+    animation-direction: alternate;
+    animation-delay: 0s;
+    position: relative;
+    animation-iteration-count: infinite;
+}
+*/
+.page-home #workspace {
+}
+.page-home #screen {
+    z-index: 1000;
+}
+.page-home canvas {
+    position: absolute;
+    z-index: -1000;
+}
