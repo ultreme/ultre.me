@@ -98,7 +98,7 @@
     {{ block "head" . }}{{ end }}
 
   </head>
-  <body>
+  <body class="page-{{.Page.Kind}}">
       {{ partial "header" . }}
       {{ block "main" . }}{{ end }}
       {{ partial "footer" . }}

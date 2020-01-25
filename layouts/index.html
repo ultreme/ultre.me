@@ -1,76 +1,23 @@
 {{ define "main" }}
-
-{{ $records_page := $.GetPage "/records" }}
-{{ $publishing_page := $.GetPage "/publishing" }}
-
-<div class="container page-home">
-  <!--<div class="row">
-    <h2>{{ .Params.intro_text | safeHTML }}</h2>
-  </div>-->
-  <!--<div class="row">
-      <img src="/enter.gif" />
-  </div>-->
-  <div class="row" id="workspace">
-      <img src="/screen-empty.png" id="screen" />
+  <div id="workspace">
+      <img id="screen" src="/screen-empty.png" />
   </div>
-  <!--
-  <div class="row align-items-center">
-    <div class="col-md-6 align-self-center" align="center">
-      <a target="_blank" href="{{ $records_page.RelPermalink }}">
-        <img src="{{ ((resources.Get `/img/ultreme-records.png`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
-        <h3>{{ $records_page.Title }}</h3>
-      </a>
-    </div>
-    <div class="col-md-6 align-self-center" align="center">
-      <a target="_blank" href="{{ $publishing_page.RelPermalink }}">
-        <img src="{{ ((resources.Get `/img/logo_sport_extreme.png`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
-        <h3>{{ $publishing_page.Title }}</h3>
-      </a>
-    </div>
-  </div>
-  <div class="row align-items-center">
-    <div class="col-md-6 align-self-center" align="center">
-      <a target="_blank" href="https://github.com/ultreme">
-        <img src="{{ ((resources.Get `/img/gomme.jpg`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
-        <h3>des 0 et des 1 sur GitHub</h3>
-      </a>
-    </div>
-    <div class="col-md-6 align-self-center" align="center">
-      <a target="_blank" href="https://camembertaulaitcrew.biz">
-        <img src="{{ ((resources.Get `/img/calc.png`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
-        <h3>Camembert au lait crew</h3>
-      </a>
-    </div>
-  </div>
-  <div class="row align-items-center">
-    <div class="col-md-6 align-self-center" align="center">
-      <a target="_blank" href="https://radio.m1ch3l.biz">
-        <img src="{{ ((resources.Get `/img/m1ch3l.png`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
-        <h3>Radio m1ch3l</h3>
-      </a>
-    </div>
-    <div class="col-md-6 align-self-center" align="center">
-      <a>
-        <img src="{{ ((resources.Get `/img/cle.png`).Resize `400x jpg`).RelPermalink }}" class="img-fluid" />
-        <h3>D'autres projets à venir...</h3>
-      </a>
-    </div>
-  </div>
-  -->
-</div>
 {{ end }}
 
 {{ define "custom_js" }}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
 <script type="text/javascript">
  var lines = [];
+  let previous_width = 42;
  function setup() {
-     var workspace = $('#workspace')
+     var workspace = $('#screen')
      var canvas = createCanvas(workspace.width(), workspace.height());
      canvas.parent('workspace')
      background(0);
      lines.push(new Line("lime"));
      lines.push(new Line("cyan"));
+     lines.push(new Line("magenta"));
+     setInterval(windowResized, 100)
  }
  function draw() {
      background(0, 0, 0, 10);
@@ -80,9 +27,12 @@
      }
  }
  function windowResized() {
-     var workspace = $('#workspace')
-     resizeCanvas(workspace.width(), workspace.height());
-     centerCanvas();
+     var workspace = $('#screen')
+     if (previous_width != workspace.width()) {
+         console.log(previous_width, workspace.width());
+         previous_width = workspace.width();
+         resizeCanvas(workspace.width(), workspace.height());
+     }
  }
  class Line {
      constructor(color) {
