@@ -8,7 +8,7 @@
           <area shape="rect" coords="270, 115, 381, 239" href="{{($.GetPage "/artists").RelPermalink}}" title="{{($.GetPage "/artists").Title}}">
           <area shape="rect" coords="425, 119, 534, 243" href="{{($.GetPage "/publishing").RelPermalink}}" title="{{($.GetPage "/publishing").Title}}">
           <area shape="rect" coords="586, 113, 707, 242" href="#" title="Notepad">
-          <area shape="rect" coords="268, 418, 417, 580" href="#" title="Contact">
+          <area shape="rect" coords="268, 418, 417, 580" href="{{($.GetPage "/contact").RelPermalink}}" title="{{($.GetPage "/contact").Title}}">
           <area shape="rect" coords="96, 433, 225, 574" href="#" title="Videos">
           <area shape="rect" coords="602, 282, 737, 415" href="#" title="Photos">
           <area shape="rect" coords="415, 268, 538, 400" href="#" title="Drawings">
@@ -97,6 +97,11 @@
            case "Settings":
                $('#screen-icon').css('background', 'linear-gradient('+getRandomColor()+', '+getRandomColor()+')');
                //background: linear-gradient(#e66465, #9198e5);
+               e.preventDefault();
+               break;
+           case "Help":
+               //window.open("https://www.youtube.com/watch?v=VPghdYVL9HM");
+               window.open("https://www.youtube.com/watch?v=mfMrVKnGzwg");
                e.preventDefault();
                break;
            case "Power":
