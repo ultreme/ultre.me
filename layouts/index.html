@@ -1,72 +1,103 @@
 {{ define "main" }}
   <div id="workspace">
       <img id="screen" src="/screen/empty.png" />
+      <img id="screen-icon" src="/screen/icon-transparent.png" usemap="#windoz" />
+
+      <map name="windoz">
+          <area shape="rect" coords="105, 112, 219, 250" href="{{($.GetPage "/records").RelPermalink}}" title="Ultreme Records" alt="Ultreme Records">
+          <area shape="rect" coords="270, 115, 381, 239" href="{{($.GetPage "/artists").RelPermalink}}" title="Ultreme Artists" alt="Ultreme Artists">
+          <area shape="rect" coords="425, 119, 534, 243" href="{{($.GetPage "/publishing").RelPermalink}}" title="Ultreme Publishing" alt="Ultreme Publishing">
+          <area shape="rect" coords="586, 113, 707, 242" href="#" title="Notepad" alt="">
+          <area shape="rect" coords="268, 418, 417, 580" href="#" title="Contact" alt="">
+          <area shape="rect" coords="96, 433, 225, 574" href="#" title="Videos" alt="">
+          <area shape="rect" coords="602, 282, 737, 415" href="#" title="Photos" alt="">
+          <area shape="rect" coords="415, 268, 538, 400" href="#" title="Drawings" alt="">
+          <area shape="rect" coords="257, 271, 396, 402" href="{{($.GetPage "/events").RelPermalink}}" title="Events" alt="">
+          <area shape="rect" coords="107, 279, 219, 409" href="{{($.GetPage "/projects").RelPermalink}}" title="Projects" alt="">
+          <area shape="rect" coords="757, 114, 891, 249" href="#" title="Trash" alt="">
+          <area shape="rect" coords="826, 770, 956, 880" href="#" title="Help" alt="">
+          <area shape="rect" coords="82, 891, 194, 930" href="#" title="Start" alt="">
+          <area shape="rect" coords="765, 889, 962, 932" href="#" title="Settings" alt="">
+          <area shape="circle" coords="866, 979, 17" href="#" title="Power" alt="">
+      </map>
   </div>
 {{ end }}
 
 {{ define "custom_js" }}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
-<script type="text/javascript">
- var lines = [];
-  let previous_width = 42;
- function setup() {
-     var workspace = $('#screen')
-     var canvas = createCanvas(workspace.width(), workspace.height());
-     canvas.parent('workspace')
-     background(0);
-     lines.push(new Line("lime"));
-     lines.push(new Line("cyan"));
-     lines.push(new Line("magenta"));
-     setInterval(windowResized, 100)
- }
- function draw() {
-     background(0, 0, 0, 10);
-     for (let l of lines) {
-         l.update();
-         l.draw();
-     }
- }
- function windowResized() {
-     var workspace = $('#screen')
-     if (previous_width != workspace.width()) {
-         console.log(previous_width, workspace.width());
-         previous_width = workspace.width();
-         resizeCanvas(workspace.width(), workspace.height());
-     }
- }
- class Line {
-     constructor(color) {
-         this.color = color;
-         this.p1 = new Point();
-         this.p2 = new Point();
-     }
-     update() {
-         this.p1.update();
-         this.p2.update();
-     }
-     draw() {
-         stroke(this.color);
-         line(this.p1.x, this.p1.y, this.p2.x, this.p2.y);
-     }
- }
- class Point {
-     constructor() {
-         this.x = random(0, width);
-         this.y = random(0, height);
-         this.vx = random(-5, 5);
-         this.vy = random(-5, 5);
-     }
-     update() {
-         this.x += this.vx;
-         this.y += this.vy;
-         if (this.x < 0 || this.x > width) {
-             this.vx *= -1;
-         }
-         if (this.y < 0 || this.y > height) {
-             this.vy *= -1;
-         }
-     }
- }
-</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
+  <script type="text/javascript" src="https://calendrier.ultre.me/2019/partout/imageMapResizer.min.js"></script>
+  <script type="text/javascript">
+   var lines = [];
+   let previous_width = 42;
+   function setup() {
+       var workspace = $('#screen')
+       var canvas = createCanvas(workspace.width(), workspace.height());
+       canvas.parent('workspace')
+       background(0);
+       lines.push(new Line("lime"));
+       lines.push(new Line("cyan"));
+       lines.push(new Line("magenta"));
+       setInterval(windowResized, 100)
+   }
+   function draw() {
+       background(0, 0, 0, 20);
+       for (let l of lines) {
+           l.update();
+           l.draw();
+       }
+   }
+   function windowResized() {
+       var workspace = $('#screen')
+       if (previous_width != workspace.width()) {
+           console.log(previous_width, workspace.width());
+           previous_width = workspace.width();
+           resizeCanvas(workspace.width(), workspace.height());
+       }
+   }
+   class Line {
+       constructor(color) {
+           this.color = color;
+           this.p1 = new Point();
+           this.p2 = new Point();
+       }
+       update() {
+           this.p1.update();
+           this.p2.update();
+       }
+       draw() {
+           stroke(this.color);
+           line(this.p1.x, this.p1.y, this.p2.x, this.p2.y);
+       }
+   }
+   class Point {
+       constructor() {
+           this.x = random(0, width);
+           this.y = random(0, height);
+           this.vx = random(-5, 5);
+           this.vy = random(-5, 5);
+       }
+       update() {
+           this.x += this.vx;
+           this.y += this.vy;
+           if (this.x < 0 || this.x > width) {
+               this.vx *= -1;
+           }
+           if (this.y < 0 || this.y > height) {
+               this.vy *= -1;
+           }
+       }
+   }
+   $('#screen').click(function() {
+       $('#screen-icon').show();
+       $('#screen, canvas').remove();
+       $('map').imageMapResize();
+   });
+   $('area').click(function(e) {
+       if (e.currentTarget.href.endsWith("#")) {
+           alert("Ce programme windoz est cassé, reviens plus tard stp");
+           e.preventDefault();
+       }
+   });
+  </script>
 
 {{ end }}
