@@ -4,21 +4,21 @@
       <img id="screen-icon" src="/screen/icon-transparent.png" usemap="#windoz" />
 
       <map name="windoz">
-          <area shape="rect" coords="105, 112, 219, 250" href="{{($.GetPage "/records").RelPermalink}}" title="Ultreme Records" alt="Ultreme Records">
-          <area shape="rect" coords="270, 115, 381, 239" href="{{($.GetPage "/artists").RelPermalink}}" title="Ultreme Artists" alt="Ultreme Artists">
-          <area shape="rect" coords="425, 119, 534, 243" href="{{($.GetPage "/publishing").RelPermalink}}" title="Ultreme Publishing" alt="Ultreme Publishing">
-          <area shape="rect" coords="586, 113, 707, 242" href="#" title="Notepad" alt="">
-          <area shape="rect" coords="268, 418, 417, 580" href="#" title="Contact" alt="">
-          <area shape="rect" coords="96, 433, 225, 574" href="#" title="Videos" alt="">
-          <area shape="rect" coords="602, 282, 737, 415" href="#" title="Photos" alt="">
-          <area shape="rect" coords="415, 268, 538, 400" href="#" title="Drawings" alt="">
-          <area shape="rect" coords="257, 271, 396, 402" href="{{($.GetPage "/events").RelPermalink}}" title="Events" alt="">
-          <area shape="rect" coords="107, 279, 219, 409" href="{{($.GetPage "/projects").RelPermalink}}" title="Projects" alt="">
-          <area shape="rect" coords="757, 114, 891, 249" href="#" title="Trash" alt="">
-          <area shape="rect" coords="826, 770, 956, 880" href="#" title="Help" alt="">
-          <area shape="rect" coords="82, 891, 194, 930" href="#" title="Start" alt="">
-          <area shape="rect" coords="765, 889, 962, 932" href="#" title="Settings" alt="">
-          <area shape="circle" coords="866, 979, 17" href="#" title="Power" alt="">
+          <area shape="rect" coords="105, 112, 219, 250" href="{{($.GetPage "/records").RelPermalink}}" title="{{($.GetPage "/records").Title}}">
+          <area shape="rect" coords="270, 115, 381, 239" href="{{($.GetPage "/artists").RelPermalink}}" title="{{($.GetPage "/artists").Title}}">
+          <area shape="rect" coords="425, 119, 534, 243" href="{{($.GetPage "/publishing").RelPermalink}}" title="{{($.GetPage "/publishing").Title}}">
+          <area shape="rect" coords="586, 113, 707, 242" href="#" title="Notepad">
+          <area shape="rect" coords="268, 418, 417, 580" href="#" title="Contact">
+          <area shape="rect" coords="96, 433, 225, 574" href="#" title="Videos">
+          <area shape="rect" coords="602, 282, 737, 415" href="#" title="Photos">
+          <area shape="rect" coords="415, 268, 538, 400" href="#" title="Drawings">
+          <area shape="rect" coords="257, 271, 396, 402" href="{{($.GetPage "/events").RelPermalink}}" title="{{($.GetPage "/events").Title}}">
+          <area shape="rect" coords="107, 279, 219, 409" href="{{($.GetPage "/projects").RelPermalink}}" title="{{($.GetPage "/projects").Title}}">
+          <area shape="rect" coords="757, 114, 891, 249" href="#" title="Trash">
+          <area shape="rect" coords="826, 770, 956, 880" href="#" title="Help">
+          <area shape="rect" coords="82, 891, 194, 930" href="{{($.GetPage "/about").RelPermalink}}" title="{{($.GetPage "/about").Title}}">
+          <area shape="rect" coords="765, 889, 962, 932" href="#" title="Settings">
+          <area shape="circle" coords="866, 979, 17" href="#" title="Power">
       </map>
   </div>
 {{ end }}
@@ -99,6 +99,18 @@
                //background: linear-gradient(#e66465, #9198e5);
                e.preventDefault();
                break;
+           case "Power":
+               $('#workspace').remove();
+               $('body').css({
+                   'background': 'url(/armageddon.jpg)',
+                   'background-size': 'cover',
+                   'background-position': 'center',
+               });
+               setTimeout(function() {
+                   alert("zut alors !");
+               }, 1000);
+               e.preventDefault();
+               break;
            default:
                if (e.currentTarget.href.endsWith("#")) {
                    alert("Ce programme windoz est cassé, reviens plus tard stp");
@@ -107,14 +119,14 @@
        }
    });
 
-      function getRandomColor() {
-      var letters = '0123456789ABCDEF';
-      var color = '#';
-      for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-      }
+   function getRandomColor() {
+       var letters = '0123456789ABCDEF';
+       var color = '#';
+       for (var i = 0; i < 6; i++) {
+           color += letters[Math.floor(Math.random() * 16)];
+       }
+       return color;
+   }
 
   </script>
 
