@@ -23,7 +23,10 @@ async function main() {
     'Tracks',
     'Mashups',
     'Playlists',
-    'Drawings%20%26%20Pictures',
+    'Videos',
+    'Photos',
+    'Texts',
+    'Drawings',
     'Writings',
     'Tags',
     'Publishers',
@@ -58,7 +61,7 @@ async function main() {
     log(`ERROR: attachment download error: ${err}`);
     process.exit(5);
   }
-  
+
   const defaultLanguage = 'en';
   ['en', 'fr'].forEach(lang => {
     // Join relations. 1 level deep
@@ -143,7 +146,7 @@ function isPublished(item) {
 async function fetchTable(tableName) {
   let records = [];
   await _fetchTable();
-  
+
   async function _fetchTable(offset) {
     let url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${tableName}`;
         url = offset ? `${url}?offset=${offset}`: url;
@@ -164,15 +167,15 @@ async function fetchTable(tableName) {
         return records;
       })
       .catch(error => {
-        log(`AIRTABLE ERROR: ${error}`);
+        log(`fetch table: AIRTABLE ERROR: ${error}`);
         process.exit(2);
       })
 
-    async function checkStatus(res) {
+      async function checkStatus(res) {
       if (res.ok) {
         return res.json();
       } else {
-        log(`AIRTABLE ERROR: ${res.statusText}`);
+        log(`check status: AIRTABLE ERROR: ${res.statusText} (${res.url})`);
         process.exit(3);
       }
     }
@@ -222,12 +225,12 @@ function flattenAirtableRecords(tableName, items) {
               log(`WARNING: file extension unknown for ${item.type}`);
             }
 
-            return { 
+            return {
               isfile: true,
               filename: item.filename,
               size: item.size,
               type: item.type,
-              remote: url, 
+              remote: url,
               local: getAttachmentPath(`${item.id}-${item.filename.replace(/\s/g, '_')}.${extension}`, false)
             };
           }
@@ -319,7 +322,7 @@ function safeFrontmatterProps(item) {
   if (item.tags) {
     item.tags = item.tags.map(tag => tag.name);
   }
-  
+
   Object.keys(item).forEach(key => {
     if (reservedsKeys.includes(key)) {
       item[`${prefix}${key}`] = item[key];
@@ -437,7 +440,7 @@ async function downloadAttachment(url, destination) {
 //
 function normalizeArray(items, key = 'id') {
   let result = {};
-  items.forEach(item => { 
+  items.forEach(item => {
     if (!item[key]) {
       log(`WARNING item - ${item.id} - doesn't have the property ${key}`)
       return;
