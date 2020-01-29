@@ -15,5 +15,10 @@ content/artists/*
 content/publishing/*
 content/events/*
 content/projects/*
+content/videos/*
+content/texts/*
+content/drawings/*
+content/photos/*
+content/pictures/*
 
 !content/*/_index*md

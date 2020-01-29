@@ -7,27 +7,16 @@
 {{ end }}
 
 {{ $s.Set "links" slice }}
-{{ $s.Add "links" (dict "title" "Deezer" "url" .Params.deezer "icon" `<img class="img-fluid w-100" src="/img/deezer-logo.svg" />`) }}
-{{ $s.Add "links" (dict "title" "Amazon" "url" .Params.amazon "icon" `<i class="fab fa-amazon"></i>`) }}
-{{ $s.Add "links" (dict "title" "Spotify" "url" .Params.spotify "icon" `<i class="fab fa-spotify"></i>`) }}
-{{ $s.Add "links" (dict "title" "Google Play" "url" .Params.google_play "icon" `<i class="fab fa-google-play"></i>`) }}
-{{ $s.Add "links" (dict "title" "Tidal" "url" .Params.tidal "icon" `<img class="img-fluid w-100" src="/img/tidal-logo.svg" />`) }}
-{{ $s.Add "links" (dict "title" "Youtube" "url" .Params.youtube_topic "icon" `<i class="fab fa-youtube"></i>`) }}
-{{ $s.Add "links" (dict "title" "Soundcloud" "url" .Params.soundcloud_album "icon" `<i class="fab fa-soundcloud"></i>`) }}
-{{ $s.Add "links" (dict "title" "Bandcamp" "url" .Params.bandcamp "icon" `<i class="fab fa-bandcamp"></i>`) }}
-{{ $s.Add "links" (dict "title" "Musicbrainz" "url" .Params.musicbrainz "icon" `<img class="img-fluid w-100" src="/img/musicbrainz-logo.svg" />`) }}
+{{ $s.Add "links" (dict "title" "Youtube" "url" .Params.youtube_url "icon" `<i class="fab fa-youtube"></i>`) }}
 
 {{ $s.Set "specs" slice }}
 {{ if .Params.release_date }}
-{{ $s.Add "specs" (dict "key" (i18n "official_release_date") "value" (dateFormat "02 January 2006" .Params.release_date)) }}
+{{ $s.Add "specs" (dict "key" (i18n "release_date") "value" (dateFormat "02 January 2006" .Params.release_date)) }}
 {{ end }}
-{{ $s.Add "specs" (dict "key" (i18n "music_label") "value" .Params.label) }}
 {{/*
 {{ $s.Add "specs" (dict "key" (i18n "publisher") "value" .Params.publisher) }}
 */}}
-{{ $s.Add "specs" (dict "key" (i18n "genre") "value" $genre) }}
-{{ $s.Add "specs" (dict "key" (i18n "no_of_tracks") "value" .Params.num_tracks) }}
-{{ $s.Add "specs" (dict "key" "UPC" "value" .Params.upc) }}
+{{ $s.Add "specs" (dict "key" (i18n "music_label") "value" .Params.label) }}
 
 {{ partial "single-hero" . }}
 
@@ -53,16 +42,6 @@
             {{ $tag_page := $.GetPage (printf "/tags/%s" $el) }}
             <a class="badge badge-primary mx-1" href="{{ $tag_page.RelPermalink }}">{{ $tag_page.Title }}</a>
             {{ end }}
-        </div>
-    </div>
-</section>
-{{ end }}
-
-{{ with .Params.soundcloud_playlist_id }}
-<section class="py-4">
-    <div class="container">
-        <div class="row">
-            <iframe width="100%" height="450" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/{{.}}&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
         </div>
     </div>
 </section>
