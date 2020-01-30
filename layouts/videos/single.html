@@ -20,6 +20,18 @@
 
 {{ partial "single-hero" . }}
 
+{{ with .Params.youtube_id }}
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{.}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+{{ end }}
+
 {{/*
 <section>
   <div class="container">
