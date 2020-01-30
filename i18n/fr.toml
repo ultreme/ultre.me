@@ -19,6 +19,9 @@ other = "Albums"
 [projects]
 other = "Projets"
 
+[videos]
+other = "Vidéos"
+
 [artists]
 other = "Artistes"
 
