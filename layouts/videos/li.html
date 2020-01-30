@@ -11,11 +11,11 @@
 </div>
 {{ end }}
 
-{{ with .Params.authors }}
-<div>{{ i18n "authors" }}:
-    {{ range $index, $el := $.Params.authors }}
-    {{- $author_page := $.GetPage .file_path -}}
-    {{ if ne $index 0 }}, {{ end }}<a href="{{ $author_page.RelPermalink }}">{{ $author_page.Title }}</a>
+{{ with .Params.artists }}
+<div>{{ i18n "artists" }}:
+    {{ range $index, $el := $.Params.artists }}
+    {{- $artist_page := $.GetPage .file_path -}}
+    {{ if ne $index 0 }}, {{ end }}<a href="{{ $artist_page.RelPermalink }}">{{ $artist_page.Title }}</a>
     {{- end }}
 </div>
 {{ end }}
