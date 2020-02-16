@@ -1,0 +1,63 @@
+{{ define "main" }}
+{{ $s := newScratch }}
+
+{{ $genre := "" }}
+{{ with .Params.genre }}
+{{ $genre = delimit . ", " }}
+{{ end }}
+
+{{ $s.Set "specs" slice }}
+{{ if .Params.release_date }}
+{{ $s.Add "specs" (dict "key" (i18n "release_date") "value" (dateFormat "02 January 2006" .Params.release_date)) }}
+{{ end }}
+{{/*
+{{ $s.Add "specs" (dict "key" (i18n "publisher") "value" .Params.publisher) }}
+*/}}
+{{ $s.Add "specs" (dict "key" (i18n "music_label") "value" .Params.label) }}
+
+{{ partial "single-hero" . }}
+
+{{/*
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p>{{ .Params.comments }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+*/}}
+
+{{ partial "single-specs" (dict "items" ($s.Get "specs")) }}
+
+{{ with .Params.tags }}
+<section>
+    <div class="container">
+        <div class="row">
+            {{ range $index, $el := $.Params.tags}}
+            {{ $tag_page := $.GetPage (printf "/tags/%s" $el) }}
+            <a class="badge badge-primary mx-1" href="{{ $tag_page.RelPermalink }}">{{ $tag_page.Title }}</a>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2>{{ (i18n "artists" .) }}</h2>
+      </div>
+    </div>
+    <div class="row">
+      {{ range .Params.artists }}
+      <div class="col-md-3 col-sm-6">
+        {{ partial "person-block" (dict "ctx" $ "id" .id) }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{end}}
