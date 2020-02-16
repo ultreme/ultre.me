@@ -13,7 +13,7 @@ main();
 async function main() {
   let entities;
 
-  const pagesToCreate = ['Albums', 'Books', 'Artists', 'Events', 'Projects', 'Videos'];
+  const pagesToCreate = ['Albums', 'Books', 'Artists', 'Events', 'Projects', 'Videos', 'Drawings'];
   const tableNames = [
     'Albums',
     'Books',
@@ -108,6 +108,10 @@ function addPageProps(item) {
     case 'projects':
       title = item.name;
       basedir = '/projects/';
+      break;
+    case 'drawings':
+      title = item.name;
+      basedir = '/drawings/';
       break;
     default:
       title = '';
