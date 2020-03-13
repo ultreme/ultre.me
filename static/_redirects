@@ -1,7 +1,8 @@
-# automatically redirect to the translated homepage based on user-agent's preferences
-/  /fr/   302! Language=fr
-/  /en/   302!
-
-/publishing /en/publishing 301
-/records /en/records 301
-/dons /en/dons 301
+/           /fr/           302! Language=fr
+/           /en/           302!
+/publishing /fr/publishing 302! Language=fr
+/publishing /en/publishing 302!
+/records    /fr/records    302! Language=fr
+/records    /en/records    302!
+/dons       /fr/dons       302! Language=fr
+/dons       /en/dons       302!
