@@ -5,4 +5,5 @@ aliases:
 menu:
   main:
     name: Albums
+    pre: "icone musique.png"
 ---

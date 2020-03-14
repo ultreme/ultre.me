@@ -5,4 +5,5 @@ aliases:
 menu:
   main:
     name: Livres
+    pre: "icone livres.png"
 ---

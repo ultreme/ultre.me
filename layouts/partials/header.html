@@ -16,7 +16,7 @@
         {{ range .Site.Menus.main }}
         {{ $is_active := $page.IsMenuCurrent "main" .}}
         <li class="nav-item {{ with $is_active }}active{{ end }}">
-          <a class="nav-link" href="{{ .URL }}">{{ .Name }}</span></a>
+          <a class="nav-link" href="{{ .URL }}">{{if .Pre}}<img src="/screen/{{.Pre}}" alt="{{.Name}}" title="{{.Name}}" />{{else}}{{ .Name }}{{end}}</span></a>
         </li>
         {{ end }}
       </ul>
