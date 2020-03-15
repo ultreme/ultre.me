@@ -93,12 +93,14 @@
        $('map').imageMapResize();
        changeBackground();
    });
-   var bg_idx = Math.floor(Math.random() * 10);
+   var bg_idx = Math.floor(Math.random() * 100);
    function changeBackground() {
-       switch (bg_idx % 6) {
+       switch (bg_idx % 10) {
            case 0: $('#screen-icon').css('background-image', 'url(/screen/bg/bliss.jpg)'); break;
            case 2: $('#screen-icon').css('background-image', 'url(/screen/bg/pro1.jpg)'); break;
            case 4: $('#screen-icon').css('background-image', 'url(/screen/bg/desk.jpg)'); break;
+           case 6: $('#screen-icon').css('background-image', 'url(/screen/bg/tiling1.jpg)'); break;
+           case 8: $('#screen-icon').css('background-image', 'url(/screen/bg/tiling2.jpg)'); break;
            default:
                $('#screen-icon').css('background', 'linear-gradient('+getRandomColor()+', '+getRandomColor()+')');
                break;
