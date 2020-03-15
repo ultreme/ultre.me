@@ -91,12 +91,24 @@
        $('#screen-icon').show();
        $('#screen, canvas').remove();
        $('map').imageMapResize();
+       changeBackground();
    });
+   var bg_idx = Math.floor(Math.random() * 10);
+   function changeBackground() {
+       switch (bg_idx % 6) {
+           case 0: $('#screen-icon').css('background-image', 'url(/screen/bg/bliss.jpg)'); break;
+           case 2: $('#screen-icon').css('background-image', 'url(/screen/bg/pro1.jpg)'); break;
+           case 4: $('#screen-icon').css('background-image', 'url(/screen/bg/desk.jpg)'); break;
+           default:
+               $('#screen-icon').css('background', 'linear-gradient('+getRandomColor()+', '+getRandomColor()+')');
+               break;
+       }
+       bg_idx++
+   }
    $('area').click(function(e) {
        switch (e.currentTarget.title) {
            case "Settings":
-               $('#screen-icon').css('background', 'linear-gradient('+getRandomColor()+', '+getRandomColor()+')');
-               //background: linear-gradient(#e66465, #9198e5);
+               changeBackground();
                e.preventDefault();
                break;
            case "Help":

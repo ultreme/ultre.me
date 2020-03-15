@@ -147,6 +147,9 @@ html, .page-home {
     margin: auto;
     display: none;
     background: linear-gradient(#e66465, #9198e5);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 .page-home canvas {
     z-index: -1000;
