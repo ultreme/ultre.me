@@ -1,0 +1,7 @@
+<ul>
+    {{ range (.Pages.ByParam "Title").ByParam "Weight" }}
+    <li>
+        <a href="{{.RelPermalink}}">{{replace (replace .File.BaseFileName "-" " ") ".fr" ""}}</a>
+    </li>
+    {{ end}}
+</ul>

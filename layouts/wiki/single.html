@@ -2,18 +2,16 @@
 <section>
     <div class="container">
         <div class="row">
-
             <div class="col-md-12">
-                <h1>{{ .Title }}</h1>
+                <!--<h1>{{ .Title }}</h1>-->
+                <h1>{{replace (replace .File.BaseFileName "-" " ") ".fr" ""}}</h1>
             </div>
 
             <div class="col-md-12">
                 {{ .Content }}
             </div>
-
-
-
         </div>
     </div>
 </section>
+<!-- FIXME: menu -->
 {{ end }}
