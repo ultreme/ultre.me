@@ -5,6 +5,8 @@
 *#
 .#*
 
+/wiki.wiki/
+
 node_modules
 
 data/gen
@@ -20,5 +22,6 @@ content/texts/*
 content/drawings/*
 content/photos/*
 content/pictures/*
+content/wiki/*
 
 !content/*/_index*md

@@ -3,6 +3,12 @@ dev: pre-build server
 
 .PHONY: pre-build
 pre-build: node_modules
+	# wiki
+	rm -rf wiki.wiki
+	git clone https://github.com/ultreme/wiki.wiki.git
+	cd content/wiki && ln -sf ../../wiki.wiki/*.md .
+	cd wiki.wiki; for file in *.md; do (cd ../content/wiki && ln -sf ../../wiki.wiki/$$file `echo "$$file" | sed 's/.md$$/.fr.md/'`); done
+	# airtable
 	node ./scripts/generate-airtable-pages.js
 
 node_modules:
