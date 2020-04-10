@@ -23,5 +23,6 @@ content/drawings/*
 content/photos/*
 content/pictures/*
 content/wiki/*
+content/ucpj/*
 
 !content/*/_index*md

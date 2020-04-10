@@ -13,7 +13,7 @@ main();
 async function main() {
   let entities;
 
-  const pagesToCreate = ['Albums', 'Books', 'Artists', 'Events', 'Projects', 'Videos', 'Drawings', 'Photos'];
+  const pagesToCreate = ['Albums', 'Books', 'Artists', 'Events', 'Projects', 'Videos', 'Drawings', 'Photos', 'Ucpj', 'ChallengePJ'];
   const tableNames = [
     'Albums',
     'Books',
@@ -30,7 +30,9 @@ async function main() {
     'Writings',
     'Tags',
     'Publishers',
-    'Locations'
+    'Locations',
+    'Ucpj',
+    'ChallengePJ',
   ];
 
   try {
@@ -51,7 +53,7 @@ async function main() {
     process.exit(1);
   }
 
-  const translated = splitToMultiLanguage(entities);
+    const translated = splitToMultiLanguage(entities);
 
   try {
     await Promise.all([
@@ -83,7 +85,8 @@ async function main() {
 
 function addPageProps(item) {
   let title = '';
-  let basedir = '';
+    let basedir = '';
+    console.log(item.from_table)
   switch (item.from_table) {
     case 'albums':
       title = item.name;
@@ -116,6 +119,15 @@ function addPageProps(item) {
     case 'photos':
       title = item.name;
       basedir = '/photos/';
+      break;
+    case 'challengepj':
+      title = item.name;
+      basedir = '/ucpj/';
+      break;
+    case 'ucpj':
+      title = item.name;
+      console.log(item)
+      basedir = '/ucpj/';
       break;
     default:
       title = '';
