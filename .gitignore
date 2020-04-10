@@ -24,5 +24,6 @@ content/photos/*
 content/pictures/*
 content/wiki/*
 content/ucpj/*
+content/challenges/*
 
 !content/*/_index*md

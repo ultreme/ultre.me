@@ -85,8 +85,7 @@ async function main() {
 
 function addPageProps(item) {
   let title = '';
-    let basedir = '';
-    console.log(item.from_table)
+  let basedir = '';
   switch (item.from_table) {
     case 'albums':
       title = item.name;
@@ -122,11 +121,10 @@ function addPageProps(item) {
       break;
     case 'challengepj':
       title = item.name;
-      basedir = '/ucpj/';
+      basedir = '/challenges/';
       break;
     case 'ucpj':
       title = item.name;
-      console.log(item)
       basedir = '/ucpj/';
       break;
     default:
