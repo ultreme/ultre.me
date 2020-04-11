@@ -92,20 +92,20 @@
 </section>
 
 <section>
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <h2>{{ (i18n "artists" .) }}</h2>
-      </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>{{ (i18n "artists" .) }}</h2>
+            </div>
+        </div>
+        <div class="row">
+            {{ range .Params.artists }}
+            <div class="col-md-3 col-sm-6">
+                {{ partial "person-block" (dict "ctx" $ "id" .id) }}
+            </div>
+            {{ end }}
+        </div>
     </div>
-    <div class="row">
-      {{ range .Params.artists }}
-      <div class="col-md-3 col-sm-6">
-        {{ partial "person-block" (dict "ctx" $ "id" .id) }}
-      </div>
-      {{ end }}
-    </div>
-  </div>
 </section>
 
 <section class="py-4">

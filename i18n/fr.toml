@@ -31,6 +31,18 @@ other = "Auteurs"
 [links]
 other = "Liens"
 
+[author]
+other = "Auteur"
+
+[rules]
+other = "Règles"
+
+[entries]
+other = "Entrées"
+
+[project]
+other = "Projet"
+
 [official_release_date]
 other = "Date de sortie"
 

@@ -1,0 +1,23 @@
+{{ $at := index $.Site.Data.gen (print "airtable_" $.Lang) }}
+
+{{ range (.Pages.GroupByParam "projectid") }}
+{{$first_entry := index .Pages 0}}
+{{$project_page := $.GetPage (index $at (index (index (index .Pages 0).Params.project) 0).id).file_path}}
+
+<div class="container">
+    <div class="row">
+        {{/*{{ printf "/projects/%s" .Key }}*/}}
+        {{ index $at (printf "/projects/%s" .Key) }}
+        <h3>{{.Key}} <small>({{.Pages | len}} pages)</small></h3>
+    </div>
+    <div class="row">
+        {{range .Pages}}
+        {{.Render "li_full"}}
+        {{end}}
+    </div>
+</div>
+{{end}}
+
+{{/*
+{{ $project_page := $.GetPage (index $at (printf "/projects/%s" .Key)).file_path }}
+*/}}

@@ -1,0 +1,12 @@
+{{ range (.Pages.GroupByDate "2006-01-02") }}
+<div class="container">
+    <div class="row">
+        <h3>{{.Key}} <small>({{.Pages | len}} pages)</small></h3>
+    </div>
+    <div class="row">
+        {{range .Pages}}
+        {{.Render "li_full"}}
+        {{end}}
+    </div>
+</div>
+{{end}}

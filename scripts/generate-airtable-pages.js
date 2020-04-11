@@ -125,7 +125,7 @@ function addPageProps(item) {
       break;
     case 'ucpj':
       title = item.name;
-      basedir = '/ucpj/';
+      basedir = '/' + item.project_slug[0].split('-')[0] + "/";
       break;
     default:
       title = '';

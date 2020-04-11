@@ -1,0 +1,111 @@
+{{ define "main" }}
+{{ $s := newScratch }}
+
+{{ $s.Set "links" slice }}
+{{ $s.Set "specs" slice }}
+
+{{ partial "single-hero" . }}
+
+<!--{{ partial "single-specs" (dict "items" ($s.Get "specs")) }}-->
+
+
+<div class="section">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <strong>{{(i18n "release_date")}}:</strong>
+                {{ (dateFormat "02 January 2006" .Params.date) }}
+            </div>
+            <div>
+                <strong>{{ (i18n "project" .) }}:</strong>
+                {{range .Params.project}}
+                {{ $page := $.GetPage .file_path }}
+                <a href="{{$page.RelPermalink}}">{{.name}}</a>
+                {{end}}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+{{ with .Params.tags }}
+<section>
+    <div class="container">
+        <div class="row">
+            {{ range $index, $el := $.Params.tags}}
+            {{ $tag_page := $.GetPage (printf "/tags/%s" $el) }}
+            <a class="badge badge-primary mx-1" href="{{ $tag_page.RelPermalink }}">{{ $tag_page.Title }}</a>
+            {{ end }}
+        </div>
+    </div>
+</section>
+{{ end }}
+
+
+{{with .Params.rules}}
+<section>
+    <div class="container">
+        <div class="row">
+            <h2>{{ (i18n "rules" .) }}</h2>
+        </div>
+        <div class="row">
+            {{. | markdownify}}
+        </div>
+    </div>
+</section>
+{{end}}
+
+{{range .Params.author}}
+<section>
+    <div class="container">
+        <div class="row">
+            <h2>{{ (i18n "author" .) }}</h2>
+        </div>
+        <div class="row">
+            {{ partial "person-block" (dict "ctx" $ "id" .id) }}
+        </div>
+    </div>
+</section>
+{{end}}
+
+{{ $at := index $.Site.Data.gen (print "airtable_" $.Lang) }}
+
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2>{{ (i18n "entries" .) }}</h2>
+      </div>
+    </div>
+    <div class="row">
+        {{ range .Params.ucpj }}
+        {{   $ucpj := . }}
+        {{   range .artists }}
+        {{     $artist_id := . }}
+        {{     $ucpj_page := $.GetPage (index $at $ucpj.id).file_path }}
+        {{     $artist_page := $.GetPage (index $at $artist_id).file_path }}
+        {{     $image := "" }}
+        {{     if $artist_page.Params.artwork }}
+        {{     $image = (index $artist_page.Params.artwork 0) }}
+        {{     end }}
+
+        <div class="col-md-3 col-sm-6">
+            <a href="{{ $ucpj_page.RelPermalink }}" class="d-flex flex-column p-4 text-center">
+                <div class="m-auto" style="width: 120px; border-radius: 100%; overflow: hidden;">
+                    {{ if $image }}
+                    <img class="img-fluid" src="{{ ((resources.Get $image.local).Resize `120x jpg`).RelPermalink }}" />
+                    {{ else }}
+                    <img class="img-fluid" src="{{ ((resources.Get "img/gomme.jpg").Resize `120x jpg`).RelPermalink }}" />
+                    {{ end }}
+                </div>
+                <h5 class="mt-2">{{ $artist_page.Title }}</h5>
+            </a>
+        </div>
+
+        {{   end }}
+        {{ end }}
+    </div>
+  </div>
+</section>
+{{end}}
