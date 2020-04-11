@@ -24,3 +24,7 @@ build: pre-build
 	hugo --gc --minify
 	./go-get.sh
 	find public -type f -ls
+
+.PHONY: trigger-deploy
+trigger-deploy:
+	curl -X POST -d {} https://api.netlify.com/build_hooks/5e91f26c1694d90d0ca5725b
