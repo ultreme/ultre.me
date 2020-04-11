@@ -12,7 +12,7 @@
         <ul>
           {{ range .pages }}
           {{ if .file_path }}
-          {{ $page := $.ctx.GetPage .file_path }}
+          {{ $page := $.ctx.GetPage (printf "%s/_index.md" .file_path) }}
           <li>
             <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
           </li>

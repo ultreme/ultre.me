@@ -43,6 +43,21 @@ other = "Entries"
 [project]
 other = "Project"
 
+[ucpj]
+other = "UCPJ"
+
+[udpj]
+other = "UDPJ"
+
+[ugpj]
+other = "UGPJ"
+
+[uppj]
+other = "UPPJ"
+
+[uxpj]
+other = "One thing a day"
+
 [official_release_date]
 other = "Official release date"
 
