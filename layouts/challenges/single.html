@@ -81,14 +81,17 @@
     <div class="row">
         {{ range .Params.ucpj }}
         {{   $ucpj := . }}
+        {{   $ucpj_page := $.GetPage (index $at $ucpj.id).file_path }}
         {{   range .artists }}
-        {{     $artist_id := . }}
-        {{     $ucpj_page := $.GetPage (index $at $ucpj.id).file_path }}
-        {{     $artist_page := $.GetPage (index $at $artist_id).file_path }}
         {{     $image := "" }}
-        {{     if $artist_page.Params.artwork }}
-        {{     $image = (index $artist_page.Params.artwork 0) }}
-        {{     end }}
+        {{     $artist_page := "" }}
+        {{     $artist_id := . }}
+        {{     $index := index $at $artist_id }}
+        {{     with $index }}
+        {{       $artist_page := $.GetPage $index.file_path }}
+        {{       if $artist_page.Params.artwork }}
+        {{         $image = (index $artist_page.Params.artwork 0) }}
+        {{       end }}
 
         <div class="col-md-3 col-sm-6">
             <a href="{{ $ucpj_page.RelPermalink }}" class="d-flex flex-column p-4 text-center">
@@ -102,7 +105,7 @@
                 <h5 class="mt-2">{{ $artist_page.Title }}</h5>
             </a>
         </div>
-
+        {{     end }}
         {{   end }}
         {{ end }}
     </div>
