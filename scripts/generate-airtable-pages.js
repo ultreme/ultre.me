@@ -479,7 +479,11 @@ function isId(value) {
 }
 
 function getAttachmentPath(filepath, absolute = true) {
-  const filename = path.basename(filepath);
+    let filename = path.basename(filepath);
+    const extension = filename.split('.').pop();
+    if (filename.length > 64) {
+        filename = filename.substring(0,64)+"."+extension;
+    }
   return absolute
     ? path.join(__dirname, `../assets/gen/${filename}`)
     : path.join(`/gen/${filename.replace(/\%/g, '_')}`);
