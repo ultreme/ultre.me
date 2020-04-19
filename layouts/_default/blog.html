@@ -1,0 +1,42 @@
+{{ define "main" }}
+<section>
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 col-lg-4 col-sm-12 list-item">
+                <div class="list-item-inner">
+                    <a href="{{($.GetPage "/ucpj").RelPermalink}}">
+                        <div class="list-item-image">
+                            <img class="img-fluid" src="/blog/ucpj.png" />
+                        </div>
+                        <h4 class="title mx-3 mt-3">{{($.GetPage "/ucpj").Title}}</h4>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-sm-12 list-item">
+                <div class="list-item-inner">
+                    <a href="{{($.GetPage "/udpj").RelPermalink}}">
+                        <div class="list-item-image">
+                            <img class="img-fluid" src="/blog/udpj.jpg" />
+                        </div>
+                        <h4 class="title mx-3 mt-3">{{($.GetPage "/udpj").Title}}</h4>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-sm-12 list-item">
+                <div class="list-item-inner">
+                    <a href="{{($.GetPage "/uppj").RelPermalink}}">
+                        <div class="list-item-image">
+                            <img class="img-fluid" src="/blog/uppj.png" />
+                        </div>
+                        <h4 class="title mx-3 mt-3">{{($.GetPage "/uppj").Title}}</h4>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{{ end }}

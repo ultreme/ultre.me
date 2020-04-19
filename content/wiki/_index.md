@@ -1,7 +1,7 @@
 ---
 title: Ultreme Wiki
-#menu:
-#  main:
-#    name: Wiki
-#    pre: "icone contact.png"
+menu:
+  main:
+    name: Wiki
+    pre: "icone wiki.png"
 ---
