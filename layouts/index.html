@@ -3,6 +3,8 @@
       <img id="screen" src="/screen/empty.png" />
       <img id="screen-icon" src="/screen/icon-transparent.png" usemap="#windoz" />
 
+
+
       <map name="windoz">
           <area shape="rect" coords="105, 112, 219, 250" href="{{($.GetPage "/records").RelPermalink}}" title="{{($.GetPage "/records").Title}}">
           <area shape="rect" coords="270, 115, 381, 239" href="{{($.GetPage "/artists").RelPermalink}}" title="{{($.GetPage "/artists").Title}}">
@@ -19,6 +21,10 @@
           <area shape="rect" coords="82, 891, 194, 930" href="{{($.GetPage "/about").RelPermalink}}" title="{{($.GetPage "/about").Title}}">
           <area shape="rect" coords="765, 889, 962, 932" href="#" title="Settings">
           <area shape="circle" coords="866, 979, 17" href="#" title="Power">
+          <area shape="rect" coords="436, 414, 556, 582" href="{{($.GetPage "/radio").RelPermalink}}" title="{{($.GetPage "/radio").Title}}"><!-- RADIO -->
+          <area shape="rect" coords="594, 411, 732, 597" href="{{($.GetPage "/blog").RelPermalink}}" title="{{($.GetPage "/blog").Title}}"><!-- BLOG -->
+          <area shape="rect" coords="90, 595, 221, 741" href="{{($.GetPage "/wiki").RelPermalink}}" title="{{($.GetPage "/wiki").Title}}"><!-- WIKI -->
+          <area shape="rect" coords="269, 592, 386, 740" href="https://ultre.me/discord" title="Chat"><!-- CHAT -->
       </map>
   </div>
 {{ end }}
