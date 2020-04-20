@@ -1,9 +1,33 @@
+{{if not .Page.Params.no_navbar}}
 <footer>
-  <div class="container">
-    <div class="row">
-      <small>
-        {{ i18n "footer" | safeHTML }}
-      </small>
+    <div class="container">
+        <div class="row row-top">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-4">
+                        <img src="/logo-annaig.png" class="img-fluid" class="logo-footer" />
+                    </div>
+                    <div class="col-4">
+                        <h5>{{ i18n "ultreme_network" }}</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a href="https://calendrier.ultre.me">{{ i18n "ultreme_calendar" }}</a></li>
+                            <li><a href="https://reporters.ultre.me">{{ i18n "ultreme_reporters" }} / Radio Chaos</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-4">
+                        <h5>{{ i18n "connect_with_us" }}</h5>
+                        <ul class="list-unstyled text-small">
+                            <li><a href="https://ultre.me/discord">Discord</a></li>
+                            <li><a href="https://twitch.tv/radio_chaos">Twitch</a></li>
+                            <li><a href="https://github.com/ultreme">GitHub</a></li>
+                            <li><a href="https://soundcloud.com/ultreme">SoundCloud</a></li>
+                            <li><a href="https://twitter.com/ultre_me">Twitter</a></li>
+                            <li><a href="https://www.youtube.com/channel/UCUePlKDhs2bLqV0yP-CITpQ">YouTube</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </footer>
+{{end}}

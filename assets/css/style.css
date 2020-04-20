@@ -155,3 +155,6 @@ html, .page-home {
     z-index: -1000;
     margin: auto;
 }
+footer {
+    margin-top: 70px;
+}
