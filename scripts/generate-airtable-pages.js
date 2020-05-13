@@ -253,7 +253,7 @@ function flattenAirtableRecords(tableName, items) {
               size: item.size,
               type: item.type,
               remote: url,
-              local: getAttachmentPath(`${item.id}-${item.filename.replace(/\s/g, '_')}.${extension}`, false)
+              local: getAttachmentPath(`${item.id}-${renameAttachmentWithExtension(item.filename, extension)}`, false)
             };
           }
           return item;
@@ -478,12 +478,23 @@ function isId(value) {
   return value.startsWith('rec') && value.length == 17;
 }
 
-function getAttachmentPath(filepath, absolute = true) {
+function renameAttachmentWithExtension(filepath, extension) {
     let filename = path.basename(filepath);
-    const extension = filename.split('.').pop();
+    filename = filename.replace(/[^a-zA-Z0-9]+/g, "-")
     if (filename.length > 64) {
-        filename = filename.substring(0,64)+"."+extension;
+        filename = filename.substring(0,64);
     }
+    filename = filename +"."+extension;
+    return filename;
+}
+
+function renameAttachment(filename) {
+    const extension = filename.split('.').pop();
+    return renameAttachmentWithExtension(filename, extension);
+}
+
+function getAttachmentPath(filepath, absolute = true) {
+    let filename = renameAttachment(filepath);
   return absolute
     ? path.join(__dirname, `../assets/gen/${filename}`)
     : path.join(`/gen/${filename.replace(/\%/g, '_')}`);
