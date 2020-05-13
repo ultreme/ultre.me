@@ -253,7 +253,7 @@ function flattenAirtableRecords(tableName, items) {
               size: item.size,
               type: item.type,
               remote: url,
-              local: getAttachmentPath(`${item.id}-${renameAttachmentWithExtension(item.filename, extension)}`, false)
+                local: getAttachmentPath(`${item.id}-${item.filename}`, extension, false)
             };
           }
           return item;
@@ -419,7 +419,7 @@ async function downloadAttachmentsFromItems(items) {
       if (value instanceof Array) {
         value.forEach(async v => {
           if (v && v.isfile) {
-            promises.push(downloadAttachment(v.remote, v.local));
+            promises.push(downloadAttachment(v.remote, "./assets/" + v.local));
           }
         })
       }
@@ -436,11 +436,11 @@ async function downloadAttachmentsFromItems(items) {
 }
 
 async function downloadAttachment(url, destination) {
-  const filepath = getAttachmentPath(destination);
+    const filepath = destination;
   if (fs.existsSync(filepath)) {
     return;
   }
-  log(`Downloading attachment ${url}`);
+  log(`Downloading attachment ${url} -> ${destination}`);
   fs.mkdirSync(path.dirname(filepath), { recursive: true });
 
   const res = await fetch(url);
@@ -493,8 +493,8 @@ function renameAttachment(filename) {
     return renameAttachmentWithExtension(filename, extension);
 }
 
-function getAttachmentPath(filepath, absolute = true) {
-    let filename = renameAttachment(filepath);
+function getAttachmentPath(filepath, extension,  absolute = true) {
+    let filename = renameAttachmentWithExtension(filepath, extension);
   return absolute
     ? path.join(__dirname, `../assets/gen/${filename}`)
     : path.join(`/gen/${filename.replace(/\%/g, '_')}`);
