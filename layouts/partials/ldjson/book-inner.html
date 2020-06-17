@@ -29,7 +29,7 @@
 ],
 
 {{ with $page.Params.publisher }}
-"publisher": "{{ (index . 0).title }}",
+"publisher": "{{ (index . 0) }}",
 {{ end }}
 
 {{ with $page.Params.isbn10 }}
