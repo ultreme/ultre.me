@@ -1,6 +1,6 @@
 module ultre.me/ultre.me/scripts/soundcloud-extract
 
-go 1.14
+go 1.19
 
 require (
 	github.com/antchfx/htmlquery v1.2.3
